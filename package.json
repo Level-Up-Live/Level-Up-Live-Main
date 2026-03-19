@@ -1,0 +1,12 @@
+{
+  "name": "level-up-live-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync:events": "node tools/sync-events.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "googleapis": "^144.0.0"
+  }
+}
