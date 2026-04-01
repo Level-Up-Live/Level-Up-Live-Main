@@ -650,16 +650,35 @@ a:hover {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10, 12, 15, 0.75) 0%, rgba(10, 12, 15, 0.9) 100%),
-              url("content/images/locations/lake-erie-arms/hero-load.jpg") center / cover no-repeat;
+  background: #000;
   background-color: var(--bg-dark);
+}
+
+.hero-video-fallback {
+  position: absolute;
+  inset: 0;
+  background: url("content/images/_1092411.jpg") center / cover no-repeat;
+}
+
+.hero-video-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  min-width: 100%;
+  height: 56.25vw;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  border: 0;
+  pointer-events: none;
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z' fill='%2300e5c7' fill-opacity='0.03'/%3E%3C/g%3E%3C/svg%3E");
-  opacity: 0.8;
+  background: linear-gradient(180deg, rgba(10, 12, 15, 0.72) 0%, rgba(10, 12, 15, 0.9) 100%),
+              url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z' fill='%2300e5c7' fill-opacity='0.03'/%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.95;
 }
 
 .hero-grid {
@@ -670,6 +689,13 @@ a:hover {
     linear-gradient(90deg, rgba(0,229,199,0.04) 1px, transparent 1px);
   background-size: 60px 60px;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video-frame {
+    display: none;
+  }
+}
+
 
 .hero-content {
   position: relative;
