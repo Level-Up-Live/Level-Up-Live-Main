@@ -1674,6 +1674,62 @@ a:hover {
   padding-top: var(--header-h);
 }
 
+/* ---- Tournaments / events page ---- */
+.main-tournaments {
+  padding-top: calc(var(--header-h) + var(--space-lg));
+}
+
+.past-events {
+  padding: var(--space-3xl) 0;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+}
+
+.past-events .section-title {
+  margin-bottom: var(--space-sm);
+}
+
+.past-events-intro {
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto var(--space-2xl);
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.past-events-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.past-events-figure {
+  margin: 0;
+}
+
+.past-events-gallery img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+
+@media (max-width: 900px) {
+  .past-events-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .past-events-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---- Locations page ---- */
 .main-locations {
   padding-top: var(--header-h);
