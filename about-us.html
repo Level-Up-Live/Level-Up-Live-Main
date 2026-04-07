@@ -110,69 +110,31 @@
       </div>
     </section>
 
-    <section class="about-team">
+    <section class="about-offers" aria-labelledby="our-offers-heading">
       <div class="container">
-        <h2 class="section-title">Meet The Team</h2>
-        <div class="about-team-grid">
-          <article class="about-team-card">
-            <h3>Tom Chiarella</h3>
-            <p>CEO and Founder</p>
-          </article>
-          <article class="about-team-card">
-            <h3>Jian Chen</h3>
-            <p>COO</p>
-          </article>
-          <article class="about-team-card">
-            <h3>Tejasrikumar Kori</h3>
-            <p>Mechatronics Engineer</p>
-          </article>
-          <article class="about-team-card">
-            <h3>Clement Ho</h3>
-            <p>Marketing</p>
-          </article>
-          <article class="about-team-card">
-            <h3>Manouj Govindaraju</h3>
-            <p>Game Developer</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="about-technology">
-      <div class="container">
-        <h2 class="section-title">Our Technology</h2>
-        <p class="about-tech-intro">
-          Explore the engineering behind our smart target system. When your 3D file is added, visitors can rotate and inspect the target directly.
-        </p>
-        <div class="about-tech-grid">
-          <div class="about-target-viewer-wrap">
-            <model-viewer src="content/models/target.glb" camera-controls auto-rotate interaction-prompt="auto" ar ar-modes="webxr scene-viewer quick-look" class="about-target-viewer">
-            </model-viewer>
-            <p class="about-target-note">3D target model placeholder. Add your model at <code>content/models/target.glb</code>.</p>
-          </div>
-          <div class="about-zones-grid">
-            <article class="about-zone-card about-zone-card-1">
-              <div class="about-zone-image" aria-hidden="true"></div>
-              <div class="about-zone-body">
-                <h3>Zone 1</h3>
-                <p>Close-range reaction and warm-up zone for fast target acquisition.</p>
-              </div>
-            </article>
-            <article class="about-zone-card about-zone-card-2">
-              <div class="about-zone-image" aria-hidden="true"></div>
-              <div class="about-zone-body">
-                <h3>Zone 2</h3>
-                <p>Mid-range tactical scenario zone focused on movement and precision.</p>
-              </div>
-            </article>
-            <article class="about-zone-card about-zone-card-3">
-              <div class="about-zone-image" aria-hidden="true"></div>
-              <div class="about-zone-body">
-                <h3>Zone 3</h3>
-                <p>Advanced challenge zone designed for high-pressure competitive play.</p>
-              </div>
-            </article>
-          </div>
+        <h2 class="section-title" id="our-offers-heading">Our Offers</h2>
+        <div class="about-offers-grid">
+          <a href="immersion-zone.html" class="about-offer-card">
+            <span class="about-offer-image about-offer-image-immersion" aria-hidden="true"></span>
+            <span class="about-offer-body">
+              <span class="about-offer-title">Immersion Zone</span>
+              <span class="about-offer-meta">2023</span>
+            </span>
+          </a>
+          <a href="action-zone.html" class="about-offer-card">
+            <span class="about-offer-image about-offer-image-action" aria-hidden="true"></span>
+            <span class="about-offer-body">
+              <span class="about-offer-title">Action Zone</span>
+              <span class="about-offer-meta">Late 2026</span>
+            </span>
+          </a>
+          <a href="live-fire-zone.html" class="about-offer-card">
+            <span class="about-offer-image about-offer-image-livefire" aria-hidden="true"></span>
+            <span class="about-offer-body">
+              <span class="about-offer-title">Live Fire Zone</span>
+              <span class="about-offer-meta">Late 2026</span>
+            </span>
+          </a>
         </div>
       </div>
     </section>
@@ -229,7 +191,6 @@
     </div>
   </footer>
 
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
