@@ -3,6 +3,7 @@
    ============================================ */
 
 :root {
+  color-scheme: dark light;
   --bg-dark: #0a0c0f;
   --bg-card: #111318;
   --bg-elevated: #161a21;
@@ -31,6 +32,26 @@
   --pattern-grid: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 24h48M24 0v48' stroke='%2300e5c7' stroke-opacity='0.04' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
   --pattern-diagonal: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40L40 0M-20 20L20 60M20 -20L60 20' stroke='%2300e5c7' stroke-opacity='0.05' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
   --pattern-hex: url("data:image/svg+xml,%3Csvg width='56' height='32' viewBox='0 0 56 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 0l14 8v16l-14 8-14-8V8L28 0z' fill='none' stroke='%2300e5c7' stroke-opacity='0.04' stroke-width='0.5'/%3E%3Cpath d='M14 8l14 8 14-8M14 24l14-8 14 8' fill='none' stroke='%2300e5c7' stroke-opacity='0.04' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-dark: #f4f7fb;
+    --bg-card: #ffffff;
+    --bg-elevated: #edf2f8;
+    --text: #101826;
+    --text-muted: #4f5f73;
+    --accent: #007f76;
+    --accent-dim: rgba(0, 127, 118, 0.12);
+    --accent-hover: #00665f;
+    --orange: #d95a2d;
+    --orange-dim: rgba(217, 90, 45, 0.16);
+    --border: rgba(16, 24, 38, 0.14);
+    --pattern-dots: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='1' fill='%23007f76' fill-opacity='0.08'/%3E%3C/svg%3E");
+    --pattern-grid: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 24h48M24 0v48' stroke='%23007f76' stroke-opacity='0.08' stroke-width='0.6' fill='none'/%3E%3C/svg%3E");
+    --pattern-diagonal: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40L40 0M-20 20L20 60M20 -20L60 20' stroke='%23007f76' stroke-opacity='0.08' stroke-width='0.6' fill='none'/%3E%3C/svg%3E");
+    --pattern-hex: url("data:image/svg+xml,%3Csvg width='56' height='32' viewBox='0 0 56 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 0l14 8v16l-14 8-14-8V8L28 0z' fill='none' stroke='%23007f76' stroke-opacity='0.08' stroke-width='0.6'/%3E%3Cpath d='M14 8l14 8 14-8M14 24l14-8 14 8' fill='none' stroke='%23007f76' stroke-opacity='0.08' stroke-width='0.6'/%3E%3C/svg%3E");
+  }
 }
 
 /* All-caps typography */
