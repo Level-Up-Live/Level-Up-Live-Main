@@ -328,6 +328,29 @@ a:hover {
   pointer-events: none;
 }
 
+.nav-dropdown-links {
+  min-width: 260px;
+  padding: 0.5rem 0;
+  margin-top: 0.35rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.3);
+  z-index: 120;
+}
+
+.nav-dropdown-links a {
+  display: block;
+  padding: 0.7rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.nav-dropdown-links a:hover {
+  background: rgba(0, 229, 199, 0.1);
+  color: var(--accent);
+}
+
 .nav-dropdown-mega {
   position: fixed;
   left: 0;
@@ -4352,6 +4375,38 @@ a:hover {
   padding: var(--space-3xl) 0;
 }
 
+.about-gallery {
+  padding: var(--space-3xl) 0;
+  background: var(--bg-dark);
+}
+
+.about-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.about-gallery-image {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  min-height: 240px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--bg-elevated);
+}
+
+.about-gallery-image-1 {
+  background-image: url("content/images/_1092451.jpg");
+}
+
+.about-gallery-image-2 {
+  background-image: url("content/images/CHO_8778.jpg");
+}
+
+.about-gallery-image-3 {
+  background-image: url("content/images/CHO_8903.jpg");
+}
+
 .about-offers-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -4610,6 +4665,10 @@ a:hover {
   }
 
   .about-offers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-gallery-grid {
     grid-template-columns: 1fr;
   }
 

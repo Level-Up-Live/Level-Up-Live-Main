@@ -23,7 +23,14 @@
       </a>
       <nav class="nav-main" aria-label="Main navigation">
         <ul>
-          <li><a href="about-us.html">About Us</a></li>
+          <li class="nav-item-dropdown">
+            <button type="button" class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="about-menu">About Us</button>
+            <div class="nav-dropdown nav-dropdown-links" id="about-menu" role="menu" aria-hidden="true">
+              <a href="about-us.html#who-we-are" role="menuitem">Who We Are</a>
+              <a href="our-experiences.html" role="menuitem">Our Experiences</a>
+              <a href="gallery.html" role="menuitem">Gallery</a>
+            </div>
+          </li>
           <li><a href="games.html">Games</a></li>
           <li><a href="locations.html">Locations</a></li>
         </ul>
@@ -34,7 +41,10 @@
     </div>
     <div class="nav-mobile" aria-hidden="true">
       <ul>
-        <li><a href="about-us.html">About Us</a></li>
+        <li class="nav-mobile-label">About Us</li>
+        <li><a href="about-us.html#who-we-are">Who We Are</a></li>
+        <li><a href="our-experiences.html">Our Experiences</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
         <li><a href="games.html">Games</a></li>
         <li><a href="locations.html">Locations</a></li>
       </ul>

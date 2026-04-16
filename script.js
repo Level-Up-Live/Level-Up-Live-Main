@@ -22,26 +22,39 @@
     });
   }
 
-  // Play dropdown: click to toggle, close on outside click
-  var dropdownTrigger = document.querySelector('.nav-dropdown-trigger');
-  var playMenu = document.getElementById('play-menu');
+  // Header dropdowns: click to toggle, close on outside click
+  var dropdownItems = document.querySelectorAll('.nav-item-dropdown');
+  if (dropdownItems.length) {
+    dropdownItems.forEach(function (item) {
+      var trigger = item.querySelector('.nav-dropdown-trigger');
+      if (!trigger) return;
+      trigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var isExpanded = trigger.getAttribute('aria-expanded') === 'true';
 
-  if (dropdownTrigger && playMenu) {
-    var dropdownParent = dropdownTrigger.closest('.nav-item-dropdown');
+        dropdownItems.forEach(function (otherItem) {
+          var otherTrigger = otherItem.querySelector('.nav-dropdown-trigger');
+          if (!otherTrigger) return;
+          if (otherItem !== item) {
+            otherTrigger.setAttribute('aria-expanded', 'false');
+            otherItem.classList.remove('is-open');
+          }
+        });
 
-    dropdownTrigger.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var expanded = dropdownTrigger.getAttribute('aria-expanded') === 'true';
-      dropdownTrigger.setAttribute('aria-expanded', !expanded);
-      dropdownParent.classList.toggle('is-open', !expanded);
+        trigger.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+        item.classList.toggle('is-open', !isExpanded);
+      });
     });
 
     document.addEventListener('click', function (e) {
-      if (dropdownParent && !dropdownParent.contains(e.target)) {
-        dropdownTrigger.setAttribute('aria-expanded', 'false');
-        dropdownParent.classList.remove('is-open');
-      }
+      dropdownItems.forEach(function (item) {
+        if (!item.contains(e.target)) {
+          var trigger = item.querySelector('.nav-dropdown-trigger');
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+          item.classList.remove('is-open');
+        }
+      });
     });
   }
 
