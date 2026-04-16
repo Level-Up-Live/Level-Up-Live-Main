@@ -357,16 +357,16 @@ a:hover {
 }
 
 .nav-dropdown-mega-inner {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: var(--space-2xl) var(--space-lg);
+  padding: calc(var(--space-2xl) + 0.5rem) var(--space-2xl);
 }
 
 .play-mega-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-xl);
-  margin-bottom: var(--space-xl);
+  gap: var(--space-2xl);
+  margin-bottom: var(--space-2xl);
 }
 
 .play-mega-card {
@@ -376,7 +376,7 @@ a:hover {
   text-decoration: none;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 5 / 4;
   outline: none;
 }
 
@@ -404,7 +404,7 @@ a:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: var(--space-lg) var(--space-xl);
+  padding: var(--space-xl) var(--space-xl);
   background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent 60%);
   display: flex;
   align-items: flex-end;
@@ -416,7 +416,7 @@ a:hover {
 .play-mega-card-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: #fff;
@@ -477,8 +477,8 @@ a:hover {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: var(--space-xl);
-  padding-top: var(--space-lg);
+  gap: var(--space-2xl);
+  padding-top: var(--space-xl);
   border-top: 1px solid var(--border);
 }
 
@@ -661,7 +661,7 @@ a:hover {
 .hero {
   position: relative;
   min-height: 100vh;
-  padding: calc(var(--header-h) + var(--space-2xl)) var(--space-lg) var(--space-3xl);
+  padding: calc(var(--header-h) + var(--space-2xl)) var(--space-lg) var(--space-xl);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -683,13 +683,13 @@ a:hover {
 
 .hero-video-frame {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
   width: 100vw;
   min-width: 100%;
-  height: 56.25vw;
-  min-height: 100%;
-  transform: translate(-50%, -50%);
+  height: 75vw;
+  min-height: 133%;
+  transform: translateX(-50%);
   border: 0;
   pointer-events: none;
 }
@@ -858,40 +858,67 @@ a:hover {
 /* ---- Promos ---- */
 .promos {
   position: relative;
-  padding: var(--space-3xl) 0;
+  margin-top: calc(-1 * (var(--space-3xl) + 7rem));
+  padding: var(--space-xl) 0 var(--space-3xl);
   background: var(--bg-dark);
   background-image: var(--pattern-dots);
   background-size: 24px 24px;
   overflow: visible;
+  z-index: 2;
 }
 
 .promos-inner {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 var(--space-lg);
+  padding: 0;
   overflow: visible;
 }
 
 .promos-track {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(320px, 36vw);
   gap: var(--space-lg);
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  padding: 0 var(--space-lg) var(--space-sm);
+}
+
+.promos-track::-webkit-scrollbar {
+  height: 8px;
+}
+
+.promos-track::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
 }
 
 .promo-card {
+  position: relative;
+  min-height: 520px;
   min-width: 0;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+  border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
+  display: block;
+  scroll-snap-align: start;
 }
 
 .promo-image {
-  height: 200px;
+  position: absolute;
+  inset: 0;
+  height: 100%;
   background-size: cover;
   background-position: center;
+}
+
+.promo-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 12, 15, 0.14) 0%, rgba(10, 12, 15, 0.88) 72%, rgba(10, 12, 15, 0.95) 100%);
 }
 
 .promo-1 {
@@ -923,11 +950,13 @@ a:hover {
 }
 
 .promo-body {
-  padding: var(--space-lg);
-  flex: 1;
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  padding: var(--space-xl) var(--space-lg) var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-md);
 }
 
 .promo-body h3 {
@@ -940,20 +969,29 @@ a:hover {
 
 .promo-body p {
   font-size: 0.95rem;
-  color: var(--text-muted);
+  color: rgba(232, 234, 237, 0.92);
   margin: 0;
   flex: 1;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 900px) {
+  .promos {
+    margin-top: calc(-1 * (var(--space-2xl) + 3rem));
+  }
+
   .promos-track {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-columns: minmax(300px, 82vw);
   }
 }
 
 @media (max-width: 500px) {
+  .promos {
+    margin-top: calc(-1 * (var(--space-xl) + 2rem));
+  }
+
   .promos-track {
-    grid-template-columns: 1fr;
+    grid-auto-columns: 90vw;
   }
 }
 
@@ -1052,7 +1090,7 @@ a:hover {
 /* ---- Brand moment ---- */
 .brand-moment {
   position: relative;
-  padding: var(--space-3xl) 0;
+  padding: var(--space-3xl) 0 0;
   background: var(--bg-dark);
   background-image: linear-gradient(rgba(10, 12, 15, 0.75), rgba(10, 12, 15, 0.85)), url("content/images/background/background-hero.jpeg");
   background-size: cover;
@@ -1129,6 +1167,63 @@ a:hover {
   margin-top: var(--space-md);
 }
 
+/* ---- Partner location CTA ---- */
+.partner-location-cta {
+  padding: 0 0 var(--space-3xl);
+  background: var(--bg-dark);
+  margin-top: -1px;
+}
+
+.partner-location-cta .container {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.partner-location-card {
+  width: 100%;
+  padding: var(--space-2xl);
+  border-radius: 0;
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 15% 10%, rgba(0, 229, 199, 0.14), transparent 34%),
+    radial-gradient(circle at 85% 14%, rgba(255, 107, 53, 0.12), transparent 32%),
+    var(--bg-card);
+  text-align: center;
+}
+
+.partner-location-eyebrow {
+  margin: 0 0 var(--space-sm);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.partner-location-title {
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.partner-location-copy {
+  margin: 0 auto var(--space-xl);
+  max-width: 70ch;
+  color: var(--text-muted);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.partner-location-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
 @media (max-width: 900px) {
   .brand-moment-grid {
     grid-template-columns: 1fr;
@@ -1144,6 +1239,10 @@ a:hover {
     grid-column: 1;
     grid-row: auto;
     min-height: 200px;
+  }
+
+  .partner-location-card {
+    padding: var(--space-xl);
   }
 }
 
