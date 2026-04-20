@@ -22,6 +22,49 @@
     });
   }
 
+  // Ensure Play mega menu includes How It Works and Our Experiences
+  var playMenuGrids = document.querySelectorAll('.play-mega-grid');
+  var createPlayMegaCard = function (href, imageClass, titleText) {
+    var card = document.createElement('a');
+    card.href = href;
+    card.className = 'play-mega-card';
+    card.setAttribute('role', 'menuitem');
+    card.innerHTML =
+      '<span class="play-mega-card-image ' + imageClass + '"></span>' +
+      '<span class="play-mega-card-content">' +
+        '<span class="play-mega-card-text">' +
+          '<span class="play-mega-card-title">' + titleText + '</span>' +
+        '</span>' +
+        '<span class="play-mega-card-arrow" aria-hidden="true">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+        '</span>' +
+      '</span>';
+    return card;
+  };
+
+  if (playMenuGrids.length) {
+    playMenuGrids.forEach(function (grid) {
+      var hasHowItWorks = grid.querySelector('a[href="how-it-works.html"]');
+      var hasOurExperiences = grid.querySelector('a[href="our-experiences.html"]');
+
+      if (!hasHowItWorks) {
+        grid.appendChild(createPlayMegaCard('how-it-works.html', 'play-mega-thumb-howitworks', 'How It Works'));
+      }
+
+      if (!hasOurExperiences) {
+        grid.appendChild(createPlayMegaCard('our-experiences.html', 'play-mega-thumb-experiences', 'Our Experiences'));
+      }
+    });
+  }
+
+  // Remove duplicate "How it works" text link in Play footer (card remains)
+  var playFooterHowItWorksLinks = document.querySelectorAll('.play-mega-footer a[href^="how-it-works.html"]');
+  if (playFooterHowItWorksLinks.length) {
+    playFooterHowItWorksLinks.forEach(function (link) {
+      link.remove();
+    });
+  }
+
   // Header dropdowns: click to toggle, close on outside click
   var dropdownItems = document.querySelectorAll('.nav-item-dropdown');
   if (dropdownItems.length) {

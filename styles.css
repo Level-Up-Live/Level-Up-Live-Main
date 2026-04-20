@@ -387,20 +387,57 @@ a:hover {
 
 .play-mega-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: var(--space-2xl);
   margin-bottom: var(--space-2xl);
+  align-items: stretch;
 }
 
 .play-mega-card {
   display: block;
   position: relative;
+  grid-column: span 4;
   color: var(--text);
   text-decoration: none;
   border-radius: var(--radius-lg);
   overflow: hidden;
   aspect-ratio: 5 / 4;
   outline: none;
+}
+
+/* Featured row: priority cards */
+.play-mega-grid .play-mega-card[href="locations.html"] {
+  grid-column: 1 / span 4;
+  grid-row: 1;
+  aspect-ratio: 16 / 10;
+}
+
+.play-mega-grid .play-mega-card[href="upcoming-tournaments.html"] {
+  grid-column: 5 / span 4;
+  grid-row: 1;
+  aspect-ratio: 16 / 10;
+}
+
+.play-mega-grid .play-mega-card[href="plan-an-event.html"] {
+  grid-column: 9 / span 4;
+  grid-row: 1;
+  aspect-ratio: 16 / 10;
+}
+
+/* Supporting row: balanced and centered */
+.play-mega-grid .play-mega-card[href="games.html"] {
+  grid-column: 2 / span 3;
+  grid-row: 2;
+}
+
+.play-mega-grid .play-mega-card[href="how-it-works.html"] {
+  grid-column: 5 / span 3;
+  grid-row: 2;
+}
+
+.play-mega-grid .play-mega-card[href="our-experiences.html"] {
+  grid-column: 8 / span 3;
+  grid-row: 2;
 }
 
 .play-mega-card:focus,
@@ -496,6 +533,18 @@ a:hover {
   background-color: rgba(21, 28, 38, 0.9);
 }
 
+.play-mega-thumb-howitworks {
+  background: linear-gradient(135deg, rgba(13, 24, 32, 0.45) 0%, var(--accent-dim) 60%, rgba(10, 12, 15, 0.6) 100%),
+              url("content/images/_1092330.jpg") center / cover;
+  background-color: rgba(13, 24, 32, 0.9);
+}
+
+.play-mega-thumb-experiences {
+  background: linear-gradient(135deg, rgba(21, 28, 38, 0.35) 0%, var(--orange-dim) 52%, rgba(26, 31, 46, 0.52) 100%),
+              url("content/images/_1092451.jpg") center / cover;
+  background-color: rgba(21, 28, 38, 0.9);
+}
+
 .play-mega-footer {
   display: flex;
   justify-content: center;
@@ -532,7 +581,19 @@ a:hover {
 
 @media (max-width: 900px) {
   .play-mega-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .play-mega-card,
+  .play-mega-grid .play-mega-card[href="locations.html"],
+  .play-mega-grid .play-mega-card[href="upcoming-tournaments.html"],
+  .play-mega-grid .play-mega-card[href="plan-an-event.html"],
+  .play-mega-grid .play-mega-card[href="games.html"],
+  .play-mega-grid .play-mega-card[href="how-it-works.html"],
+  .play-mega-grid .play-mega-card[href="our-experiences.html"] {
+    grid-column: auto;
+    grid-row: auto;
+    aspect-ratio: 5 / 4;
   }
 }
 
@@ -706,7 +767,7 @@ a:hover {
 
 .hero-video-frame {
   position: absolute;
-  top: 0;
+  top: -12%;
   left: 50%;
   width: 100vw;
   min-width: 100%;
