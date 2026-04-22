@@ -17,7 +17,8 @@ for (const key of REQUIRED_ENV) {
 
 const DROPBOX_API = 'https://api.dropboxapi.com/2';
 const token = process.env.DROPBOX_ACCESS_TOKEN;
-const folderPath = process.env.DROPBOX_GALLERY_FOLDER_PATH;
+const rawFolderPath = String(process.env.DROPBOX_GALLERY_FOLDER_PATH || '').trim();
+const folderPath = rawFolderPath === '/' ? '' : rawFolderPath;
 const maxImages = Number(process.env.DROPBOX_GALLERY_MAX_IMAGES || '60');
 
 const fetchDropbox = async (endpoint, body) => {
