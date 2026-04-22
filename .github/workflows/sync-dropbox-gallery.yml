@@ -1,6 +1,6 @@
 name: Sync Dropbox Gallery
 
-on:
+'on':
   workflow_dispatch:
   schedule:
     - cron: "*/10 * * * *"
