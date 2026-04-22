@@ -338,6 +338,60 @@
       });
   }
 
+  // Gallery page: render images from generated JSON (supports Dropbox sync)
+  var galleryGrid = document.querySelector('.about-gallery-grid');
+  if (galleryGrid) {
+    var ensureDropboxRawUrl = function (url) {
+      var value = String(url || '').trim();
+      if (!value) return '';
+      try {
+        var parsed = new URL(value);
+        if (parsed.hostname.indexOf('dropbox.com') !== -1) {
+          parsed.searchParams.delete('dl');
+          parsed.searchParams.set('raw', '1');
+          return parsed.toString();
+        }
+      } catch (error) {
+        return value;
+      }
+      return value;
+    };
+    var renderGallery = function (images) {
+      if (!Array.isArray(images) || !images.length) return;
+      galleryGrid.innerHTML = images
+        .map(function (item, index) {
+          var src = ensureDropboxRawUrl(item && item.url);
+          if (!src) return '';
+          var safeSrc = src
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+          var alt = (item && item.alt ? String(item.alt) : 'Gallery image ' + (index + 1))
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+          return '<div class="about-gallery-image" role="img" aria-label="' + alt + '" style="background-image:url(\'' + safeSrc + '\')"></div>';
+        })
+        .join('');
+    };
+
+    fetch('content/data/gallery.json')
+      .then(function (response) {
+        if (!response.ok) throw new Error('Unable to load gallery data');
+        return response.json();
+      })
+      .then(function (payload) {
+        renderGallery((payload && payload.images) || []);
+      })
+      .catch(function () {
+        // Keep CSS fallback images if gallery data is unavailable.
+      });
+  }
+
   // Optional: smooth scroll for anchor links (some browsers need this)
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     var id = anchor.getAttribute('href');

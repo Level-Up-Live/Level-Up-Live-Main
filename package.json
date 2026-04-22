@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "sync:events": "node tools/sync-events.mjs"
+    "sync:events": "node tools/sync-events.mjs",
+    "sync:gallery": "node tools/sync-dropbox-gallery.mjs"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
