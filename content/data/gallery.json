@@ -1,23 +1,8 @@
 {
-  "generated_at": "2026-04-22T00:00:00.000Z",
+  "generated_at": "2026-04-22T17:27:29.762Z",
   "source": {
-    "type": "local-fallback"
+    "type": "dropbox",
+    "folder_path": ""
   },
-  "images": [
-    {
-      "name": "_1092451.jpg",
-      "alt": "Gallery image 1",
-      "url": "content/images/_1092451.jpg"
-    },
-    {
-      "name": "CHO_8778.jpg",
-      "alt": "Gallery image 2",
-      "url": "content/images/CHO_8778.jpg"
-    },
-    {
-      "name": "CHO_8903.jpg",
-      "alt": "Gallery image 3",
-      "url": "content/images/CHO_8903.jpg"
-    }
-  ]
+  "images": []
 }
