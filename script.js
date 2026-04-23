@@ -133,6 +133,19 @@
     });
   }
 
+  // History-aware back links for zone pages
+  var historyBackLinks = document.querySelectorAll('[data-history-back="true"]');
+  if (historyBackLinks.length) {
+    historyBackLinks.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        if (window.history.length > 1) {
+          e.preventDefault();
+          window.history.back();
+        }
+      });
+    });
+  }
+
   // Mobile menu
   var menuToggle = document.querySelector('.menu-toggle');
   var navMobile = document.querySelector('.nav-mobile');

@@ -3716,21 +3716,12 @@ a:hover {
 
 .immersion-hero-media {
   min-height: 420px;
-  background:
-    linear-gradient(180deg, rgba(10, 12, 15, 0.1), rgba(10, 12, 15, 0.8)),
-    url("content/images/_1092451.jpg") center / cover no-repeat;
+  background: url("content/images/gallery/IMG_6467-Enhanced-NR.jpg") center / cover no-repeat;
   position: relative;
 }
 
 .immersion-hero-media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(rgba(0, 229, 199, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 229, 199, 0.08) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mix-blend-mode: screen;
+  content: none;
 }
 
 .immersion-intro,
@@ -3977,21 +3968,12 @@ a:hover {
 
 .livefire-hero-media {
   min-height: 420px;
-  background:
-    linear-gradient(180deg, rgba(10, 12, 15, 0.14), rgba(10, 12, 15, 0.82)),
-    url("content/images/CHO_8903.jpg") center / cover no-repeat;
+  background: url("content/images/renders/Screenshot%202026-02-20%20041548%20%281%29.jpg") center / cover no-repeat;
   position: relative;
 }
 
 .livefire-hero-media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(rgba(255, 107, 53, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 107, 53, 0.07) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mix-blend-mode: screen;
+  content: none;
 }
 
 .livefire-intro,
@@ -4232,21 +4214,12 @@ a:hover {
 
 .action-hero-media {
   min-height: 420px;
-  background:
-    linear-gradient(180deg, rgba(10, 12, 15, 0.14), rgba(10, 12, 15, 0.82)),
-    url("content/images/CHO_8778.jpg") center / cover no-repeat;
+  background: url("content/images/renders/Screenshot%202026-02-20%20041341.jpg") center / cover no-repeat;
   position: relative;
 }
 
 .action-hero-media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(rgba(0, 229, 199, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 107, 53, 0.07) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mix-blend-mode: screen;
+  content: none;
 }
 
 .action-intro,
@@ -4790,17 +4763,70 @@ a:hover {
 .about-zones-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-3xl);
-  max-width: 1040px;
-  margin: 0 auto;
+  gap: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
 .about-zone-block {
-  background: var(--bg-dark);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: 0;
   overflow: hidden;
-  padding: var(--space-xl);
+  border: 0;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.about-zone-block:nth-child(1) {
+  background-image: url("content/images/gallery/IMG_6467-Enhanced-NR.jpg");
+}
+
+.about-zone-block:nth-child(2) {
+  background-image: url("content/images/renders/Screenshot%202026-02-20%20041341.jpg");
+}
+
+.about-zone-block:nth-child(3) {
+  background-image: url("content/images/renders/Screenshot%202026-02-20%20041548%20%281%29.jpg");
+}
+
+.about-zone-block::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(8, 10, 14, 0.72), rgba(8, 10, 14, 0.5));
+  pointer-events: none;
+}
+
+.about-zone-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg);
+  position: relative;
+  z-index: 1;
+}
+
+.about-zone-benefits {
+  list-style: none;
+  margin: 0 0 var(--space-lg);
+  padding: 0;
+  display: grid;
+  gap: var(--space-sm);
+  max-width: 62ch;
+}
+
+.about-zone-benefits li {
+  margin: 0;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  padding: 0.7rem 0.85rem;
+}
+
+.about-zone-benefits strong {
+  color: var(--accent);
 }
 
 .about-zone-header {
