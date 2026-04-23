@@ -41,23 +41,3 @@ This site can load the tournaments/events list from `content/data/events.json`.
    npm run sync:events
    ```
 5. Deploy as normal. The page `upcoming-tournaments.html` reads from `content/data/events.json`.
-
-## Sync Gallery from Dropbox
-
-This site can also build the gallery from a Dropbox folder into `content/data/gallery.json`.
-
-1. Add Dropbox values to `.env`:
-   - `DROPBOX_ACCESS_TOKEN`
-   - `DROPBOX_GALLERY_FOLDER_PATH` (example: `/level-up-live/gallery`)
-   - `DROPBOX_GALLERY_MAX_IMAGES` (optional, default `60`)
-2. Run:
-   ```bash
-   npm run sync:gallery
-   ```
-3. The page `gallery.html` reads `content/data/gallery.json` and renders those images.
-4. For auto-sync in GitHub Pages, use the included workflow:
-   - `.github/workflows/sync-dropbox-gallery.yml`
-   - Add GitHub repository secrets:
-     - `DROPBOX_ACCESS_TOKEN`
-     - `DROPBOX_GALLERY_FOLDER_PATH`
-     - `DROPBOX_GALLERY_MAX_IMAGES` (optional)

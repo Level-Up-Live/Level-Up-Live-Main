@@ -338,58 +338,156 @@
       });
   }
 
-  // Gallery page: render images from generated JSON (supports Dropbox sync)
-  var galleryGrid = document.querySelector('.about-gallery-grid');
-  if (galleryGrid) {
-    var ensureDropboxRawUrl = function (url) {
-      var value = String(url || '').trim();
-      if (!value) return '';
-      try {
-        var parsed = new URL(value);
-        if (parsed.hostname.indexOf('dropbox.com') !== -1) {
-          parsed.searchParams.delete('dl');
-          parsed.searchParams.set('raw', '1');
-          return parsed.toString();
-        }
-      } catch (error) {
-        return value;
-      }
-      return value;
+  // Gallery page: rotating carousel
+  var aboutGalleryCarousel = document.getElementById('about-gallery-carousel');
+  var aboutGalleryTrack = document.getElementById('about-gallery-carousel-track');
+  var aboutGalleryPrev = document.getElementById('about-gallery-prev');
+  var aboutGalleryNext = document.getElementById('about-gallery-next');
+  var aboutGalleryDots = document.getElementById('about-gallery-dots');
+  if (aboutGalleryCarousel && aboutGalleryTrack && aboutGalleryPrev && aboutGalleryNext && aboutGalleryDots) {
+    var galleryFileNames = [
+      'AirsoftCon Recap.00_00_05_21.Still001.jpg',
+      'AirsoftCon Recap.00_00_10_23.Still003.jpg',
+      'CHO_3492-Enhanced-NR.jpg',
+      'CHO_3624-Enhanced-NR.jpg',
+      'CHO_3699-Enhanced-NR.jpg',
+      'CHO_8692.jpg',
+      'CHO_8704.jpg',
+      'CHO_8760.jpg',
+      'CHO_8768.jpg',
+      'CHO_8778.jpg',
+      'CHO_8832.jpg',
+      'CHO_8906.jpg',
+      'CHO_8928.jpg',
+      'CHO_8939.jpg',
+      'CHO_8976.jpg',
+      'Copy of P1074537.MOV.07_24_41_36.Still001.png',
+      'Copy of P1074606.MOV.07_28_13_11.Still001-2.jpg',
+      'Copy of P1074611.MOV.07_29_55_43.Still001-2.jpg',
+      'IMG_0137-Enhanced-NR.jpg',
+      'IMG_0190-Enhanced-NR.jpg',
+      'IMG_1093.HEIC',
+      'IMG_6467-Enhanced-NR.jpg',
+      'IMG_6478.jpg',
+      'IMG_6678-Enhanced-NR.jpg',
+      'IMG_6891.JPG',
+      'IMG_6901.JPG',
+      'IMG_6920.JPG',
+      'IMG_6923.jpg',
+      'IMG_6938.JPG',
+      'IMG_6987.JPG',
+      'IMG_7066-Enhanced-NR.jpg',
+      'IMG_7113-Enhanced-NR.jpg',
+      'IMG_7175-Enhanced-NR.jpg',
+      'P1092759.jpg',
+      'P1092785.jpg',
+      'Website landing page.00_01_05_10.Still001.jpg',
+      '_1092201.jpg',
+      '_1092408.jpg',
+      '_1092420.jpg',
+      '_1092484.jpg',
+      '_1092496.jpg',
+      '_1092562.jpg',
+      '_1092661.jpg'
+    ];
+    var normalizeAltText = function (fileName) {
+      return String(fileName || '')
+        .replace(/\.[^.]+$/, '')
+        .replace(/[_\.]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
     };
-    var renderGallery = function (images) {
-      if (!Array.isArray(images) || !images.length) return;
-      galleryGrid.innerHTML = images
-        .map(function (item, index) {
-          var src = ensureDropboxRawUrl(item && item.url);
-          if (!src) return '';
-          var safeSrc = src
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
-          var alt = (item && item.alt ? String(item.alt) : 'Gallery image ' + (index + 1))
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
-          return '<div class="about-gallery-image" role="img" aria-label="' + alt + '" style="background-image:url(\'' + safeSrc + '\')"></div>';
-        })
-        .join('');
+    var isSupportedImage = function (fileName) {
+      return /\.(jpe?g|png|webp|gif|avif)$/i.test(String(fileName || ''));
+    };
+    galleryFileNames = galleryFileNames.filter(isSupportedImage);
+    var imageMarkup = function (fileName, eager) {
+      var src = 'content/images/gallery/' + encodeURIComponent(fileName);
+      var alt = normalizeAltText(fileName)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+      var loading = eager ? 'eager' : 'lazy';
+      return '<img src="' + src + '" alt="' + alt + '" loading="' + loading + '" decoding="async" />';
     };
 
-    fetch('content/data/gallery.json')
-      .then(function (response) {
-        if (!response.ok) throw new Error('Unable to load gallery data');
-        return response.json();
-      })
-      .then(function (payload) {
-        renderGallery((payload && payload.images) || []);
-      })
-      .catch(function () {
-        // Keep CSS fallback images if gallery data is unavailable.
+    if (!galleryFileNames.length) return;
+
+    aboutGalleryTrack.innerHTML = galleryFileNames.map(function (fileName, index) {
+      return '<figure class="about-gallery-slide' + (index === 0 ? ' is-active' : '') + '" aria-hidden="' + (index === 0 ? 'false' : 'true') + '">' +
+        imageMarkup(fileName, index === 0) +
+      '</figure>';
+    }).join('');
+
+    aboutGalleryDots.innerHTML = galleryFileNames.map(function (_, index) {
+      return '<button type="button" class="about-gallery-dot' + (index === 0 ? ' is-active' : '') + '" data-index="' + index + '" aria-label="Go to slide ' + (index + 1) + '"></button>';
+    }).join('');
+
+    var currentSlide = 0;
+    var totalSlides = galleryFileNames.length;
+    var autoplayMs = 4500;
+    var autoplayTimer = null;
+    var slideEls = aboutGalleryTrack.querySelectorAll('.about-gallery-slide');
+    var dotEls = aboutGalleryDots.querySelectorAll('.about-gallery-dot');
+
+    var renderSlide = function (index) {
+      currentSlide = (index + totalSlides) % totalSlides;
+      slideEls.forEach(function (slide, idx) {
+        slide.classList.toggle('is-active', idx === currentSlide);
+        slide.setAttribute('aria-hidden', idx === currentSlide ? 'false' : 'true');
       });
+      dotEls.forEach(function (dot, idx) {
+        dot.classList.toggle('is-active', idx === currentSlide);
+      });
+    };
+
+    var restartAutoplay = function () {
+      if (autoplayTimer) window.clearInterval(autoplayTimer);
+      autoplayTimer = window.setInterval(function () {
+        renderSlide(currentSlide + 1);
+      }, autoplayMs);
+    };
+
+    aboutGalleryPrev.addEventListener('click', function () {
+      renderSlide(currentSlide - 1);
+      restartAutoplay();
+    });
+
+    aboutGalleryNext.addEventListener('click', function () {
+      renderSlide(currentSlide + 1);
+      restartAutoplay();
+    });
+
+    dotEls.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        var targetIndex = Number(dot.getAttribute('data-index'));
+        if (!Number.isNaN(targetIndex)) {
+          renderSlide(targetIndex);
+          restartAutoplay();
+        }
+      });
+    });
+
+    aboutGalleryCarousel.addEventListener('mouseenter', function () {
+      if (autoplayTimer) window.clearInterval(autoplayTimer);
+    });
+    aboutGalleryCarousel.addEventListener('mouseleave', function () {
+      restartAutoplay();
+    });
+    aboutGalleryCarousel.addEventListener('focusin', function () {
+      if (autoplayTimer) window.clearInterval(autoplayTimer);
+    });
+    aboutGalleryCarousel.addEventListener('focusout', function (event) {
+      if (!aboutGalleryCarousel.contains(event.relatedTarget)) {
+        restartAutoplay();
+      }
+    });
+
+    if (totalSlides > 1) {
+      restartAutoplay();
+    }
   }
 
   // Optional: smooth scroll for anchor links (some browsers need this)
