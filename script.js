@@ -57,6 +57,38 @@
     });
   }
 
+  // Ensure About menu includes Hear From Our Customers
+  var aboutDropdowns = document.querySelectorAll('#about-menu, .nav-item-dropdown .nav-dropdown-links');
+  if (aboutDropdowns.length) {
+    aboutDropdowns.forEach(function (menu) {
+      var hasTestimonials = menu.querySelector('a[href="hear-from-our-customers.html"]');
+      if (hasTestimonials) return;
+      var link = document.createElement('a');
+      link.href = 'hear-from-our-customers.html';
+      link.setAttribute('role', 'menuitem');
+      link.textContent = 'Hear From Our Customers';
+      menu.appendChild(link);
+    });
+  }
+
+  var navMobileLists = document.querySelectorAll('.nav-mobile ul');
+  if (navMobileLists.length) {
+    navMobileLists.forEach(function (list) {
+      if (list.querySelector('a[href="hear-from-our-customers.html"]')) return;
+      var galleryLinkItem = list.querySelector('a[href="gallery.html"]');
+      var newItem = document.createElement('li');
+      var newLink = document.createElement('a');
+      newLink.href = 'hear-from-our-customers.html';
+      newLink.textContent = 'Hear From Our Customers';
+      newItem.appendChild(newLink);
+      if (galleryLinkItem && galleryLinkItem.parentElement) {
+        galleryLinkItem.parentElement.insertAdjacentElement('afterend', newItem);
+      } else {
+        list.appendChild(newItem);
+      }
+    });
+  }
+
   // Remove duplicate "How it works" text link in Play footer (card remains)
   var playFooterHowItWorksLinks = document.querySelectorAll('.play-mega-footer a[href^="how-it-works.html"]');
   if (playFooterHowItWorksLinks.length) {
