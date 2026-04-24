@@ -97,47 +97,43 @@
       <div class="container">
         <h1 class="section-title" id="our-offers-heading">Our Experiences</h1>
         <p class="about-tech-intro">Three distinct ways to play. Pick the format that matches your group, skill level, and vibe.</p>
+        <div class="experience-selector" role="tablist" aria-label="Select experience zone">
+          <button type="button" class="experience-tab is-active" role="tab" aria-selected="true" data-zone-tab="immersion">Immersion Zone</button>
+          <button type="button" class="experience-tab" role="tab" aria-selected="false" data-zone-tab="action">Action Zone</button>
+          <button type="button" class="experience-tab" role="tab" aria-selected="false" data-zone-tab="live-fire">Live Fire Zone</button>
+        </div>
       </div>
       <div class="about-zones-grid">
-        <article class="about-zone-block">
+        <article class="about-zone-block zone-fullpage-panel is-active" data-zone-panel="immersion" role="tabpanel" aria-hidden="false">
           <div class="about-zone-inner">
-            <header class="about-zone-header">
-              <h2 class="about-zone-title">Immersion Zone</h2>
-              <p class="about-zone-lede">High-energy interactive gameplay with real-time scoring and fast replay loops.</p>
-            </header>
-            <ul class="about-zone-benefits">
-              <li><strong>Best For:</strong> Groups, first-time players, and competitive social events that want immediate action.</li>
-              <li><strong>What You Get:</strong> Reactive targets, instant hit feedback, and challenge modes designed for repeat play.</li>
-            </ul>
-            <p><a href="immersion-zone.html" class="btn btn-outline">Explore Immersion Zone</a></p>
+            <iframe
+              class="zone-fullpage-iframe"
+              src="immersion-zone.html?embed=1"
+              title="Immersion Zone details"
+              loading="lazy"
+            ></iframe>
           </div>
         </article>
 
-        <article class="about-zone-block">
+        <article class="about-zone-block zone-fullpage-panel" data-zone-panel="action" role="tabpanel" aria-hidden="true">
           <div class="about-zone-inner">
-            <header class="about-zone-header">
-              <h2 class="about-zone-title">Action Zone</h2>
-              <p class="about-zone-lede">Mission-style rounds and pressure-driven gameplay that reward strategy and pace.</p>
-            </header>
-            <ul class="about-zone-benefits">
-              <li><strong>Best For:</strong> Players who want higher-intensity game scenarios with movement and tactical decisions.</li>
-              <li><strong>What You Get:</strong> Objective-based modes, team coordination, and competitive challenges that push performance.</li>
-            </ul>
-            <p><a href="action-zone.html" class="btn btn-outline">Explore Action Zone</a></p>
+            <iframe
+              class="zone-fullpage-iframe"
+              src="action-zone.html?embed=1"
+              title="Action Zone details"
+              loading="lazy"
+            ></iframe>
           </div>
         </article>
 
-        <article class="about-zone-block">
+        <article class="about-zone-block zone-fullpage-panel" data-zone-panel="live-fire" role="tabpanel" aria-hidden="true">
           <div class="about-zone-inner">
-            <header class="about-zone-header">
-              <h2 class="about-zone-title">Live Fire Zone</h2>
-              <p class="about-zone-lede">Precision-focused live fire with sensor-equipped steel targets and measurable results.</p>
-            </header>
-            <ul class="about-zone-benefits">
-              <li><strong>Best For:</strong> Shooters who want authentic live fire progression, clear metrics, and leaderboard performance.</li>
-              <li><strong>What You Get:</strong> Sensor-verified scoring, structured drills, and competitive runs built around precision and control.</li>
-            </ul>
-            <p><a href="live-fire-zone.html" class="btn btn-outline">Explore Live Fire Zone</a></p>
+            <iframe
+              class="zone-fullpage-iframe"
+              src="live-fire-zone.html?embed=1"
+              title="Live Fire Zone details"
+              loading="lazy"
+            ></iframe>
           </div>
         </article>
       </div>
@@ -157,6 +153,28 @@
             </span>
           </a>
           <p class="footer-tagline">Immersive shooting experience.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="TikTok">TikTok</a>
+            <a href="#" aria-label="YouTube">YouTube</a>
+            <a href="#" aria-label="Facebook">Facebook</a>
+          </div>
+        </div>
+        <nav class="footer-nav">
+          <ul>
+            <li><a href="#membership">Memberships</a></li>
+            <li><a href="#book">Find a location</a></li>
+            <li><a href="#contact">Contact us</a></li>
+            <li><a href="#careers">Careers</a></li>
+          </ul>
+        </nav>
+        <div class="footer-legal">
+          <ul>
+            <li><a href="#">Terms & conditions</a></li>
+            <li><a href="#">Privacy & cookies</a></li>
+            <li><a href="#">Accessibility</a></li>
+          </ul>
+          <p class="copyright">© 2026 Level Up Live. All rights reserved.</p>
         </div>
       </div>
     </div>

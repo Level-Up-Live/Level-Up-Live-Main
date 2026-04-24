@@ -4749,9 +4749,18 @@ a:hover {
   background: var(--bg-card);
 }
 
+.about-main .about-tech {
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-md);
+}
+
+.about-main .about-tech .section-title {
+  margin-bottom: var(--space-sm);
+}
+
 .about-tech-intro {
   max-width: 860px;
-  margin: 0 auto var(--space-xl);
+  margin: 0 auto var(--space-sm);
   text-align: center;
   color: var(--text-muted);
 }
@@ -4760,13 +4769,41 @@ a:hover {
   display: block;
 }
 
-.about-zones-grid {
+.experience-selector {
+  margin-top: var(--space-sm);
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-sm);
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.experience-tab {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 0.65rem 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.experience-tab.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg-dark);
+}
+
+.about-zones-grid {
+  display: block;
   width: 100%;
   max-width: none;
-  margin: 0;
+  margin: var(--space-lg) 0 0;
 }
 
 .about-zone-block {
@@ -4779,16 +4816,41 @@ a:hover {
   background-repeat: no-repeat;
 }
 
-.about-zone-block:nth-child(1) {
+.about-zone-block[data-zone-panel="immersion"] {
   background-image: url("content/images/gallery/IMG_6467-Enhanced-NR.jpg");
 }
 
-.about-zone-block:nth-child(2) {
+.about-zone-block[data-zone-panel="action"] {
   background-image: url("content/images/renders/Screenshot%202026-02-20%20041341.jpg");
 }
 
-.about-zone-block:nth-child(3) {
+.about-zone-block[data-zone-panel="live-fire"] {
   background-image: url("content/images/renders/Screenshot%202026-02-20%20041548%20%281%29.jpg");
+}
+
+.about-zone-block:not(.is-active) {
+  display: none;
+}
+
+.zone-fullpage-panel {
+  background-image: none !important;
+}
+
+.zone-fullpage-panel::before {
+  content: none;
+}
+
+.zone-fullpage-panel .about-zone-inner {
+  max-width: none;
+  padding: 0;
+}
+
+.zone-fullpage-iframe {
+  display: block;
+  width: 100%;
+  min-height: 900px;
+  border: 0;
+  background: var(--bg-dark);
 }
 
 .about-zone-block::before {
@@ -4827,6 +4889,17 @@ a:hover {
 
 .about-zone-benefits strong {
   color: var(--accent);
+}
+
+body.is-embed .site-header,
+body.is-embed .site-footer,
+body.is-embed .zone-switcher,
+body.is-embed .zone-top-back {
+  display: none !important;
+}
+
+body.is-embed .offer-main {
+  padding-top: 0;
 }
 
 .about-zone-header {
@@ -4958,6 +5031,10 @@ a:hover {
   }
 
   .about-offers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-selector {
     grid-template-columns: 1fr;
   }
 

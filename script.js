@@ -1,6 +1,11 @@
 (function () {
   'use strict';
 
+  var currentParams = new URLSearchParams(window.location.search);
+  if (currentParams.get('embed') === '1') {
+    document.body.classList.add('is-embed');
+  }
+
   // Location form: redirect to venue page
   var locationUrls = {
     evike: 'location-evike.html',
@@ -144,6 +149,77 @@
         }
       });
     });
+  }
+
+  // Our Experiences page: in-page zone selector
+  var zoneTabs = document.querySelectorAll('[data-zone-tab]');
+  var zonePanels = document.querySelectorAll('[data-zone-panel]');
+  if (zoneTabs.length && zonePanels.length) {
+    var zoneSet = {
+      immersion: true,
+      action: true,
+      'live-fire': true
+    };
+    var getZoneFromHash = function () {
+      var key = String(window.location.hash || '').replace(/^#/, '').trim().toLowerCase();
+      return zoneSet[key] ? key : 'immersion';
+    };
+    var resizeZoneIframes = function () {
+      var zoneIframes = document.querySelectorAll('.zone-fullpage-iframe');
+      zoneIframes.forEach(function (iframe) {
+        try {
+          var doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
+          if (!doc || !doc.body) return;
+          var html = doc.documentElement;
+          var body = doc.body;
+          var nextHeight = Math.max(
+            body.scrollHeight, body.offsetHeight,
+            html ? html.clientHeight : 0,
+            html ? html.scrollHeight : 0,
+            html ? html.offsetHeight : 0
+          );
+          if (nextHeight > 0) {
+            iframe.style.height = nextHeight + 'px';
+          }
+        } catch (error) {
+          // Same-origin expected; ignore if document isn't ready yet.
+        }
+      });
+    };
+    var setActiveZone = function (zone, shouldUpdateHash) {
+      zoneTabs.forEach(function (tab) {
+        var active = tab.getAttribute('data-zone-tab') === zone;
+        tab.classList.toggle('is-active', active);
+        tab.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      zonePanels.forEach(function (panel) {
+        var active = panel.getAttribute('data-zone-panel') === zone;
+        panel.classList.toggle('is-active', active);
+        panel.setAttribute('aria-hidden', active ? 'false' : 'true');
+      });
+      if (shouldUpdateHash) {
+        window.history.replaceState(null, '', '#' + zone);
+      }
+      window.setTimeout(resizeZoneIframes, 0);
+      window.setTimeout(resizeZoneIframes, 180);
+    };
+    zoneTabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var zone = tab.getAttribute('data-zone-tab');
+        if (zoneSet[zone]) setActiveZone(zone, true);
+      });
+    });
+    window.addEventListener('hashchange', function () {
+      setActiveZone(getZoneFromHash(), false);
+    });
+    window.addEventListener('resize', resizeZoneIframes);
+    var zoneIframes = document.querySelectorAll('.zone-fullpage-iframe');
+    zoneIframes.forEach(function (iframe) {
+      iframe.addEventListener('load', function () {
+        resizeZoneIframes();
+      });
+    });
+    setActiveZone(getZoneFromHash(), false);
   }
 
   // Mobile menu
