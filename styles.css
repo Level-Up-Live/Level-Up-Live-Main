@@ -3,18 +3,6 @@
    ============================================ */
 
 :root {
-  color-scheme: dark light;
-  --bg-dark: #0a0c0f;
-  --bg-card: #111318;
-  --bg-elevated: #161a21;
-  --text: #e8eaed;
-  --text-muted: #9aa0a8;
-  --accent: #00e5c7;
-  --accent-dim: rgba(0, 229, 199, 0.15);
-  --accent-hover: #00f5e0;
-  --orange: #ff6b35;
-  --orange-dim: rgba(255, 107, 53, 0.2);
-  --border: rgba(255, 255, 255, 0.08);
   --radius: 8px;
   --radius-lg: 12px;
   --font-display: 'Bebas Neue', sans-serif;
@@ -27,31 +15,60 @@
   --space-2xl: 3rem;
   --space-3xl: 4rem;
   --header-h: 72px;
-  /* Abstract background patterns (SVG data URIs) */
+}
+
+/* Theme tokens (manual + theme-init.js). Legacy aliases keep the rest of the stylesheet stable. */
+html:not([data-theme]),
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-primary: #0a0c0f;
+  --bg-secondary: #111318;
+  --text-primary: #e8eaed;
+  --text-secondary: #9aa0a8;
+  --card-bg: #111318;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --accent-color: #00e5c7;
   --pattern-dots: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='1' fill='%2300e5c7' fill-opacity='0.06'/%3E%3C/svg%3E");
   --pattern-grid: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 24h48M24 0v48' stroke='%2300e5c7' stroke-opacity='0.04' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
   --pattern-diagonal: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40L40 0M-20 20L20 60M20 -20L60 20' stroke='%2300e5c7' stroke-opacity='0.05' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
   --pattern-hex: url("data:image/svg+xml,%3Csvg width='56' height='32' viewBox='0 0 56 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 0l14 8v16l-14 8-14-8V8L28 0z' fill='none' stroke='%2300e5c7' stroke-opacity='0.04' stroke-width='0.5'/%3E%3Cpath d='M14 8l14 8 14-8M14 24l14-8 14 8' fill='none' stroke='%2300e5c7' stroke-opacity='0.04' stroke-width='0.5'/%3E%3C/svg%3E");
+  --bg-dark: var(--bg-primary);
+  --bg-card: var(--card-bg);
+  --bg-elevated: #161a21;
+  --text: var(--text-primary);
+  --text-muted: var(--text-secondary);
+  --accent: var(--accent-color);
+  --accent-dim: rgba(0, 229, 199, 0.15);
+  --accent-hover: #00f5e0;
+  --orange: #ff6b35;
+  --orange-dim: rgba(255, 107, 53, 0.2);
+  --border: var(--border-color);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg-dark: #f4f7fb;
-    --bg-card: #ffffff;
-    --bg-elevated: #edf2f8;
-    --text: #101826;
-    --text-muted: #4f5f73;
-    --accent: #007f76;
-    --accent-dim: rgba(0, 127, 118, 0.12);
-    --accent-hover: #00665f;
-    --orange: #d95a2d;
-    --orange-dim: rgba(217, 90, 45, 0.16);
-    --border: rgba(16, 24, 38, 0.14);
-    --pattern-dots: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='1' fill='%23007f76' fill-opacity='0.08'/%3E%3C/svg%3E");
-    --pattern-grid: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 24h48M24 0v48' stroke='%23007f76' stroke-opacity='0.08' stroke-width='0.6' fill='none'/%3E%3C/svg%3E");
-    --pattern-diagonal: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40L40 0M-20 20L20 60M20 -20L60 20' stroke='%23007f76' stroke-opacity='0.08' stroke-width='0.6' fill='none'/%3E%3C/svg%3E");
-    --pattern-hex: url("data:image/svg+xml,%3Csvg width='56' height='32' viewBox='0 0 56 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 0l14 8v16l-14 8-14-8V8L28 0z' fill='none' stroke='%23007f76' stroke-opacity='0.08' stroke-width='0.6'/%3E%3Cpath d='M14 8l14 8 14-8M14 24l14-8 14 8' fill='none' stroke='%23007f76' stroke-opacity='0.08' stroke-width='0.6'/%3E%3C/svg%3E");
-  }
+html[data-theme="light"] {
+  color-scheme: light;
+  --bg-primary: #f4f7fb;
+  --bg-secondary: #edf2f8;
+  --text-primary: #101826;
+  --text-secondary: #4f5f73;
+  --card-bg: #ffffff;
+  --border-color: rgba(16, 24, 38, 0.14);
+  --accent-color: #007f76;
+  --pattern-dots: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='1' fill='%23007f76' fill-opacity='0.08'/%3E%3C/svg%3E");
+  --pattern-grid: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 24h48M24 0v48' stroke='%23007f76' stroke-opacity='0.08' stroke-width='0.6' fill='none'/%3E%3C/svg%3E");
+  --pattern-diagonal: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40L40 0M-20 20L20 60M20 -20L60 20' stroke='%23007f76' stroke-opacity='0.08' stroke-width='0.6' fill='none'/%3E%3C/svg%3E");
+  --pattern-hex: url("data:image/svg+xml,%3Csvg width='56' height='32' viewBox='0 0 56 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 0l14 8v16l-14 8-14-8V8L28 0z' fill='none' stroke='%23007f76' stroke-opacity='0.08' stroke-width='0.6'/%3E%3Cpath d='M14 8l14 8 14-8M14 24l14-8 14 8' fill='none' stroke='%23007f76' stroke-opacity='0.08' stroke-width='0.6'/%3E%3C/svg%3E");
+  --bg-dark: var(--bg-primary);
+  --bg-card: var(--card-bg);
+  --bg-elevated: #edf2f8;
+  --text: var(--text-primary);
+  --text-muted: var(--text-secondary);
+  --accent: var(--accent-color);
+  --accent-dim: rgba(0, 127, 118, 0.12);
+  --accent-hover: #00665f;
+  --orange: #d95a2d;
+  --orange-dim: rgba(217, 90, 45, 0.16);
+  --border: var(--border-color);
 }
 
 /* All-caps typography */
@@ -101,6 +118,154 @@ body {
   color: var(--text);
   background: var(--bg-dark);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ---- Theme toggle (navbar) ---- */
+.theme-toggle {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.theme-toggle-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle-icons svg {
+  display: block;
+}
+
+.theme-toggle-sun {
+  display: none;
+}
+
+.theme-toggle-moon {
+  display: flex;
+}
+
+html[data-theme="light"] .theme-toggle-sun {
+  display: flex;
+}
+
+html[data-theme="light"] .theme-toggle-moon {
+  display: none;
+}
+
+/* Fixed dark overlays + media: keep light ink (overrides global light-theme text) */
+.hero .hero-title-line:not(.accent) {
+  color: #f4f7fb;
+}
+
+.hero .hero-tagline {
+  color: rgba(244, 247, 251, 0.82);
+}
+
+.brand-moment,
+.how-it-works {
+  --text: #e8eaed;
+  --text-primary: #e8eaed;
+  --text-muted: #aab2bd;
+  --text-secondary: #aab2bd;
+}
+
+.locations-section > .container > .section-title,
+.locations-section .locations-intro {
+  color: #f4f7fb;
+}
+
+.locations-section .locations-intro {
+  opacity: 0.95;
+}
+
+.locations-section .locations-back a {
+  color: rgba(244, 247, 251, 0.85);
+}
+
+.locations-section .locations-back a:hover {
+  color: var(--accent-color);
+}
+
+html[data-theme="light"] .locations-section .location-card {
+  --text: #101826;
+  --text-primary: #101826;
+  --text-muted: #4f5f73;
+  --text-secondary: #4f5f73;
+}
+
+.games-section > .container > .section-title {
+  color: #f4f7fb;
+}
+
+.games-section .games-coming-soon-title {
+  color: #f4f7fb;
+}
+
+.games-section .games-coming-soon-desc {
+  color: rgba(244, 247, 251, 0.88);
+}
+
+.plan-event-hero .plan-event-title {
+  color: #f4f7fb;
+}
+
+.plan-event-hero .plan-event-tagline {
+  color: rgba(244, 247, 251, 0.85);
+}
+
+.promo-card .promo-body h3 {
+  color: #f4f7fb;
+}
+
+.promo-card .promo-body p {
+  color: rgba(244, 247, 251, 0.88);
+}
+
+.location-single,
+.location-single-lake-erie {
+  --text: #e8eaed;
+  --text-primary: #e8eaed;
+  --text-muted: #aab2bd;
+  --text-secondary: #aab2bd;
+}
+
+.about-hero {
+  --text: #e8eaed;
+  --text-primary: #e8eaed;
+  --text-muted: #aab2bd;
+  --text-secondary: #aab2bd;
+}
+
+.offer-hero .offer-title {
+  color: #f4f7fb;
+}
+
+.offer-hero .offer-subtitle,
+.offer-hero .offer-back-link {
+  color: rgba(244, 247, 251, 0.85);
 }
 
 img {
@@ -135,6 +300,7 @@ a:hover {
   height: var(--header-h);
   background: var(--bg-dark);
   border-bottom: 1px solid var(--border);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .header-inner {
@@ -200,6 +366,15 @@ a:hover {
   height: 40px;
   width: auto;
   object-fit: contain;
+}
+
+html[data-theme="light"] .logo-wrap::after {
+  display: none;
+}
+
+/* White wordmark art → solid black for light surfaces (icon image unchanged) */
+html[data-theme="light"] .logo-wordmark-wrap .logo-img {
+  filter: brightness(0);
 }
 
 .logo-icon {
@@ -2798,6 +2973,7 @@ a:hover {
   padding: var(--space-3xl) 0 var(--space-xl);
   border-top: 1px solid var(--border);
   background: var(--bg-dark);
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
 .footer-grid {
@@ -4555,6 +4731,32 @@ a:hover {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text);
+}
+
+html[data-theme="light"] .gallery-feature-cta-card {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 127, 118, 0.14) 0%,
+    #ffffff 42%,
+    var(--card-bg) 100%
+  );
+  border-color: var(--border-color);
+}
+
+html[data-theme="light"] .gallery-feature-cta-card h2 {
+  color: var(--text-primary);
+}
+
+html[data-theme="light"] .gallery-feature-cta-card p {
+  color: var(--text-secondary);
+}
+
+html[data-theme="light"] .gallery-feature-cta-meta {
+  color: var(--text-primary);
+}
+
+html[data-theme="light"] .gallery-feature-cta-eyebrow {
+  color: var(--accent-color);
 }
 
 .testimonials-page {
