@@ -143,34 +143,57 @@
     });
   }
 
-  // Ensure About menu includes Hear From Our Customers
+  // Ensure About menu includes Hear From Our Customers and Become a partner
   var aboutDropdowns = document.querySelectorAll('#about-menu, .nav-item-dropdown .nav-dropdown-links');
   if (aboutDropdowns.length) {
     aboutDropdowns.forEach(function (menu) {
       var hasTestimonials = menu.querySelector('a[href="hear-from-our-customers.html"]');
-      if (hasTestimonials) return;
-      var link = document.createElement('a');
-      link.href = 'hear-from-our-customers.html';
-      link.setAttribute('role', 'menuitem');
-      link.textContent = 'Hear From Our Customers';
-      menu.appendChild(link);
+      if (!hasTestimonials) {
+        var link = document.createElement('a');
+        link.href = 'hear-from-our-customers.html';
+        link.setAttribute('role', 'menuitem');
+        link.textContent = 'Hear From Our Customers';
+        menu.appendChild(link);
+      }
+      if (!menu.querySelector('a[href="become-a-partner.html"]')) {
+        var partnerLink = document.createElement('a');
+        partnerLink.href = 'become-a-partner.html';
+        partnerLink.setAttribute('role', 'menuitem');
+        partnerLink.textContent = 'Become a partner';
+        menu.appendChild(partnerLink);
+      }
     });
   }
 
   var navMobileLists = document.querySelectorAll('.nav-mobile ul');
   if (navMobileLists.length) {
     navMobileLists.forEach(function (list) {
-      if (list.querySelector('a[href="hear-from-our-customers.html"]')) return;
-      var galleryLinkItem = list.querySelector('a[href="gallery.html"]');
-      var newItem = document.createElement('li');
-      var newLink = document.createElement('a');
-      newLink.href = 'hear-from-our-customers.html';
-      newLink.textContent = 'Hear From Our Customers';
-      newItem.appendChild(newLink);
-      if (galleryLinkItem && galleryLinkItem.parentElement) {
-        galleryLinkItem.parentElement.insertAdjacentElement('afterend', newItem);
-      } else {
-        list.appendChild(newItem);
+      if (!list.querySelector('a[href="hear-from-our-customers.html"]')) {
+        var galleryLinkItem = list.querySelector('a[href="gallery.html"]');
+        var newItem = document.createElement('li');
+        var newLink = document.createElement('a');
+        newLink.href = 'hear-from-our-customers.html';
+        newLink.textContent = 'Hear From Our Customers';
+        newItem.appendChild(newLink);
+        if (galleryLinkItem && galleryLinkItem.parentElement) {
+          galleryLinkItem.parentElement.insertAdjacentElement('afterend', newItem);
+        } else {
+          list.appendChild(newItem);
+        }
+      }
+      if (!list.querySelector('a[href="become-a-partner.html"]')) {
+        var partnerAnchor =
+          list.querySelector('a[href="hear-from-our-customers.html"]') || list.querySelector('a[href="gallery.html"]');
+        var partnerLi = document.createElement('li');
+        var partnerA = document.createElement('a');
+        partnerA.href = 'become-a-partner.html';
+        partnerA.textContent = 'Become a partner';
+        partnerLi.appendChild(partnerA);
+        if (partnerAnchor && partnerAnchor.parentElement) {
+          partnerAnchor.parentElement.insertAdjacentElement('afterend', partnerLi);
+        } else {
+          list.appendChild(partnerLi);
+        }
       }
     });
   }
@@ -690,6 +713,105 @@
     if (totalSlides > 1) {
       restartAutoplay();
     }
+  }
+
+  // Become a partner: zone dropdown switches in-page panels
+  var partnerZoneSelect = document.getElementById('partner-zone-select');
+  var partnerZonePanels = document.querySelectorAll('[data-partner-zone-panel]');
+  if (partnerZoneSelect && partnerZonePanels.length) {
+    var validZones = { immersion: true, action: true, livefire: true };
+    var showPartnerZone = function (key) {
+      if (!validZones[key]) key = 'immersion';
+      partnerZonePanels.forEach(function (panel) {
+        var on = panel.getAttribute('data-partner-zone-panel') === key;
+        panel.classList.toggle('is-active', on);
+        panel.hidden = !on;
+      });
+    };
+    partnerZoneSelect.addEventListener('change', function () {
+      showPartnerZone(partnerZoneSelect.value);
+      try {
+        history.replaceState(null, '', '#zone-' + partnerZoneSelect.value);
+      } catch (e) {}
+    });
+    var zoneHash = String(window.location.hash || '').replace(/^#zone-/, '').trim().toLowerCase();
+    if (zoneHash && validZones[zoneHash]) {
+      partnerZoneSelect.value = zoneHash;
+    }
+    showPartnerZone(partnerZoneSelect.value);
+  }
+
+  // Partner resources: experiences + pricing tabs + single shared zone preview iframe
+  var partnerExpRoot = document.querySelector('.partner-exp-pricing');
+  if (partnerExpRoot) {
+    var partnerExpTabs = partnerExpRoot.querySelectorAll('[data-partner-exp-tab]');
+    var partnerExpPanels = partnerExpRoot.querySelectorAll('[data-partner-exp-panel]');
+    var partnerExpIframe = document.getElementById('partner-exp-preview-iframe');
+    var partnerExpSrc = {
+      immersion: 'immersion-zone.html?embed=1',
+      action: 'action-zone.html?embed=1',
+      'live-fire': 'live-fire-zone.html?embed=1'
+    };
+    var partnerExpTitles = {
+      immersion: 'Immersion Zone preview',
+      action: 'Action Zone preview',
+      'live-fire': 'Live Fire Zone preview'
+    };
+    var resizePartnerExpIframe = function () {
+      if (!partnerExpIframe) return;
+      try {
+        var doc = partnerExpIframe.contentDocument || (partnerExpIframe.contentWindow && partnerExpIframe.contentWindow.document);
+        if (!doc || !doc.body) return;
+        var html = doc.documentElement;
+        var body = doc.body;
+        var nextHeight = Math.max(
+          body.scrollHeight,
+          body.offsetHeight,
+          html ? html.clientHeight : 0,
+          html ? html.scrollHeight : 0,
+          html ? html.offsetHeight : 0
+        );
+        if (nextHeight > 0) {
+          var capped = Math.min(Math.max(nextHeight, 360), 2000);
+          partnerExpIframe.style.height = capped + 'px';
+        }
+      } catch (err) {
+        // Cross-origin or not ready; keep CSS height.
+      }
+    };
+    var setPartnerExpZone = function (zone) {
+      if (!partnerExpSrc[zone]) zone = 'immersion';
+      partnerExpTabs.forEach(function (tab) {
+        var on = tab.getAttribute('data-partner-exp-tab') === zone;
+        tab.classList.toggle('is-active', on);
+        tab.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      partnerExpPanels.forEach(function (panel) {
+        var on = panel.getAttribute('data-partner-exp-panel') === zone;
+        panel.classList.toggle('is-active', on);
+        panel.setAttribute('aria-hidden', on ? 'false' : 'true');
+        panel.hidden = !on;
+      });
+      if (partnerExpIframe) {
+        var nextSrc = partnerExpSrc[zone];
+        if (partnerExpIframe.getAttribute('src') !== nextSrc) {
+          partnerExpIframe.setAttribute('src', nextSrc);
+        }
+        partnerExpIframe.setAttribute('title', partnerExpTitles[zone] || 'Zone preview');
+        window.setTimeout(resizePartnerExpIframe, 0);
+        window.setTimeout(resizePartnerExpIframe, 220);
+      }
+    };
+    partnerExpTabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var zone = tab.getAttribute('data-partner-exp-tab');
+        setPartnerExpZone(zone);
+      });
+    });
+    if (partnerExpIframe) {
+      partnerExpIframe.addEventListener('load', resizePartnerExpIframe);
+    }
+    window.addEventListener('resize', resizePartnerExpIframe);
   }
 
   // Optional: smooth scroll for anchor links (some browsers need this)
