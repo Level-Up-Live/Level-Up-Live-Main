@@ -277,7 +277,7 @@
           <p class="ph-section-lead">Tell us about your venue and we will follow up on program fit, footprint, and launch timing.</p>
           <p class="ph-form-note"><span class="ph-form-required" aria-hidden="true">*</span> Required fields</p>
 
-          <form id="partner-inquiry-form" class="ph-inquiry-form" action="#" method="post" novalidate data-endpoint="https://script.google.com/macros/s/AKfycbw9YPlQyS9DCbQQ6DMq4U0un4qolGwOYXKcyvExzt961Ch0rOLxYnYhFSY7pd-l68SR/exec">
+          <form id="partner-inquiry-form" class="ph-inquiry-form" action="#" method="post" novalidate data-endpoint="https://script.google.com/macros/s/AKfycbyOp_tV77MiN_bCr5HQiDFJxxsSOWgq85pqT0P4jQvmGWASOm5a55BHiuFY6mqsWTPq/exec">
             <fieldset class="ph-form-fieldset">
               <legend class="ph-form-legend">Contact</legend>
               <div class="ph-form-row ph-form-row--2">
@@ -304,10 +304,14 @@
 
             <fieldset class="ph-form-fieldset">
               <legend class="ph-form-legend">Company</legend>
-              <div class="ph-form-row">
+              <div class="ph-form-row ph-form-row--2">
                 <div class="ph-form-field">
                   <label class="ph-form-label" for="partner-company">Company name <span class="ph-form-required" aria-hidden="true">*</span></label>
                   <input class="ph-form-input" type="text" id="partner-company" name="companyName" autocomplete="organization" required />
+                </div>
+                <div class="ph-form-field">
+                  <label class="ph-form-label" for="partner-website">Website</label>
+                  <input class="ph-form-input" type="url" id="partner-website" name="website" autocomplete="url" placeholder="https://example.com" inputmode="url" />
                 </div>
               </div>
             </fieldset>
@@ -444,7 +448,7 @@
     </div>
   </footer>
 
-  <script src="content/data/partner-form-config.js?v=3"></script>
-  <script src="script.js?v=7"></script>
+  <script src="content/data/partner-form-config.js?v=4"></script>
+  <script src="script.js?v=8"></script>
 </body>
 </html>
