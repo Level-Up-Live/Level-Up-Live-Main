@@ -796,10 +796,14 @@
       var fd = new FormData(partnerForm);
       var payload = {
         name: fd.get('name'),
-        companyName: fd.get('companyName'),
+        email: fd.get('email'),
         phone: fd.get('phone'),
+        companyName: fd.get('companyName'),
         position: fd.get('position'),
-        companyAddress: fd.get('companyAddress'),
+        streetAddress: fd.get('streetAddress'),
+        city: fd.get('city'),
+        state: fd.get('state'),
+        zipCode: fd.get('zipCode'),
         venueType: fd.get('venueType'),
         foodBeverage: fd.get('foodBeverage'),
         timeline: fd.get('timeline'),
@@ -824,37 +828,102 @@
         );
       };
 
-      var parsePartnerSubmitResponse = function (res, text) {
+      var partnerResponseOk = function (res, text) {
         var trimmed = String(text || '').trim();
-        if (!trimmed || trimmed.charAt(0) !== '{') {
-          throw new Error(
-            'Google endpoint did not return JSON. In Apps Script use Deploy → Manage deployments → Who has access: Anyone, then create a new version.'
-          );
+        if (trimmed.indexOf('"ok":true') !== -1 || trimmed.indexOf('"ok": true') !== -1) {
+          return true;
         }
-        var data = JSON.parse(trimmed);
-        if (!res.ok || !data.ok) {
-          throw new Error(data.error || 'Submission failed');
+        var start = trimmed.indexOf('{');
+        if (start === -1) {
+          return false;
         }
+        try {
+          var data = JSON.parse(trimmed.slice(start));
+          return !!(res && res.ok && data.ok);
+        } catch (parseErr) {
+          return false;
+        }
+      };
+
+      var submitPartnerViaFetchJson = function () {
+        return fetch(partnerFormEndpoint, {
+          method: 'POST',
+          mode: 'cors',
+          redirect: 'follow',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        }).then(function (res) {
+          return res.text().then(function (text) {
+            if (!partnerResponseOk(res, text)) {
+              throw new Error('JSON response not ok');
+            }
+          });
+        });
+      };
+
+      var submitPartnerViaFetchForm = function () {
+        return fetch(partnerFormEndpoint, {
+          method: 'POST',
+          mode: 'cors',
+          redirect: 'follow',
+          body: partnerPayloadToParams(payload)
+        }).then(function (res) {
+          return res.text().then(function (text) {
+            if (!partnerResponseOk(res, text)) {
+              throw new Error('Form response not ok');
+            }
+          });
+        });
+      };
+
+      var submitPartnerViaIframe = function () {
+        return new Promise(function (resolve) {
+          var iframeName = 'partner-gas-' + Date.now();
+          var iframe = document.createElement('iframe');
+          iframe.name = iframeName;
+          iframe.setAttribute('aria-hidden', 'true');
+          iframe.style.cssText =
+            'position:absolute;width:0;height:0;border:0;opacity:0;pointer-events:none';
+          document.body.appendChild(iframe);
+
+          var hiddenForm = document.createElement('form');
+          hiddenForm.method = 'POST';
+          hiddenForm.action = partnerFormEndpoint;
+          hiddenForm.target = iframeName;
+          hiddenForm.style.display = 'none';
+          Object.keys(payload).forEach(function (key) {
+            var val = payload[key];
+            if (val == null || val === '') return;
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = String(val);
+            hiddenForm.appendChild(input);
+          });
+          document.body.appendChild(hiddenForm);
+          hiddenForm.submit();
+          window.setTimeout(function () {
+            hiddenForm.remove();
+            iframe.remove();
+            resolve();
+          }, 2500);
+        });
       };
 
       if (partnerFormSubmit) partnerFormSubmit.disabled = true;
       setPartnerFormStatus('Sending…', 'success');
 
-      fetch(partnerFormEndpoint, {
-        method: 'POST',
-        mode: 'cors',
-        redirect: 'follow',
-        body: partnerPayloadToParams(payload)
-      })
-        .then(function (res) {
-          return res.text().then(function (text) {
-            parsePartnerSubmitResponse(res, text);
-          });
+      submitPartnerViaFetchJson()
+        .catch(function () {
+          return submitPartnerViaFetchForm();
+        })
+        .catch(function () {
+          return submitPartnerViaIframe();
         })
         .then(showPartnerFormSuccess)
         .catch(function () {
           setPartnerFormStatus(
-            'We could not confirm your submission in Google Sheets. Check that the web app is deployed for Anyone, then try again or email clem@leveluplive.com.',
+            'Something went wrong sending your form. Please try again or email clem@leveluplive.com.',
             'error'
           );
         })
