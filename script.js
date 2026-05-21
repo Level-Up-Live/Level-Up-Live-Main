@@ -715,103 +715,186 @@
     }
   }
 
-  // Become a partner: zone dropdown switches in-page panels
-  var partnerZoneSelect = document.getElementById('partner-zone-select');
-  var partnerZonePanels = document.querySelectorAll('[data-partner-zone-panel]');
-  if (partnerZoneSelect && partnerZonePanels.length) {
-    var validZones = { immersion: true, action: true, livefire: true };
-    var showPartnerZone = function (key) {
-      if (!validZones[key]) key = 'immersion';
-      partnerZonePanels.forEach(function (panel) {
-        var on = panel.getAttribute('data-partner-zone-panel') === key;
-        panel.classList.toggle('is-active', on);
-        panel.hidden = !on;
-      });
-    };
-    partnerZoneSelect.addEventListener('change', function () {
-      showPartnerZone(partnerZoneSelect.value);
-      try {
-        history.replaceState(null, '', '#zone-' + partnerZoneSelect.value);
-      } catch (e) {}
-    });
-    var zoneHash = String(window.location.hash || '').replace(/^#zone-/, '').trim().toLowerCase();
-    if (zoneHash && validZones[zoneHash]) {
-      partnerZoneSelect.value = zoneHash;
-    }
-    showPartnerZone(partnerZoneSelect.value);
-  }
-
-  // Partner resources: experiences + pricing tabs + single shared zone preview iframe
-  var partnerExpRoot = document.querySelector('.partner-exp-pricing');
-  if (partnerExpRoot) {
-    var partnerExpTabs = partnerExpRoot.querySelectorAll('[data-partner-exp-tab]');
-    var partnerExpPanels = partnerExpRoot.querySelectorAll('[data-partner-exp-panel]');
-    var partnerExpIframe = document.getElementById('partner-exp-preview-iframe');
-    var partnerExpSrc = {
-      immersion: 'immersion-zone.html?embed=1',
-      action: 'action-zone.html?embed=1',
-      'live-fire': 'live-fire-zone.html?embed=1'
-    };
-    var partnerExpTitles = {
-      immersion: 'Immersion Zone preview',
-      action: 'Action Zone preview',
-      'live-fire': 'Live Fire Zone preview'
-    };
-    var resizePartnerExpIframe = function () {
-      if (!partnerExpIframe) return;
-      try {
-        var doc = partnerExpIframe.contentDocument || (partnerExpIframe.contentWindow && partnerExpIframe.contentWindow.document);
-        if (!doc || !doc.body) return;
-        var html = doc.documentElement;
-        var body = doc.body;
-        var nextHeight = Math.max(
-          body.scrollHeight,
-          body.offsetHeight,
-          html ? html.clientHeight : 0,
-          html ? html.scrollHeight : 0,
-          html ? html.offsetHeight : 0
-        );
-        if (nextHeight > 0) {
-          var capped = Math.min(Math.max(nextHeight, 360), 2000);
-          partnerExpIframe.style.height = capped + 'px';
-        }
-      } catch (err) {
-        // Cross-origin or not ready; keep CSS height.
-      }
-    };
-    var setPartnerExpZone = function (zone) {
-      if (!partnerExpSrc[zone]) zone = 'immersion';
-      partnerExpTabs.forEach(function (tab) {
-        var on = tab.getAttribute('data-partner-exp-tab') === zone;
+  // Partner hub: experience program tabs
+  var partnerHubRoot = document.querySelector('.ph-programs');
+  if (partnerHubRoot) {
+    var partnerHubTabs = partnerHubRoot.querySelectorAll('[data-partner-hub-tab]');
+    var partnerHubPanels = partnerHubRoot.querySelectorAll('[data-partner-hub-panel]');
+    var partnerHubZones = { immersion: true, action: true, 'live-fire': true };
+    var setPartnerHubZone = function (zone, updateHash) {
+      if (!partnerHubZones[zone]) zone = 'immersion';
+      partnerHubTabs.forEach(function (tab) {
+        var on = tab.getAttribute('data-partner-hub-tab') === zone;
         tab.classList.toggle('is-active', on);
         tab.setAttribute('aria-selected', on ? 'true' : 'false');
       });
-      partnerExpPanels.forEach(function (panel) {
-        var on = panel.getAttribute('data-partner-exp-panel') === zone;
+      partnerHubPanels.forEach(function (panel) {
+        var on = panel.getAttribute('data-partner-hub-panel') === zone;
         panel.classList.toggle('is-active', on);
         panel.setAttribute('aria-hidden', on ? 'false' : 'true');
         panel.hidden = !on;
       });
-      if (partnerExpIframe) {
-        var nextSrc = partnerExpSrc[zone];
-        if (partnerExpIframe.getAttribute('src') !== nextSrc) {
-          partnerExpIframe.setAttribute('src', nextSrc);
-        }
-        partnerExpIframe.setAttribute('title', partnerExpTitles[zone] || 'Zone preview');
-        window.setTimeout(resizePartnerExpIframe, 0);
-        window.setTimeout(resizePartnerExpIframe, 220);
+      if (updateHash) {
+        try {
+          history.replaceState(null, '', '#zone-' + zone);
+        } catch (e) {}
       }
     };
-    partnerExpTabs.forEach(function (tab) {
+    partnerHubTabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
-        var zone = tab.getAttribute('data-partner-exp-tab');
-        setPartnerExpZone(zone);
+        setPartnerHubZone(tab.getAttribute('data-partner-hub-tab'), true);
       });
     });
-    if (partnerExpIframe) {
-      partnerExpIframe.addEventListener('load', resizePartnerExpIframe);
+    var partnerHubHash = String(window.location.hash || '').replace(/^#zone-/, '').trim().toLowerCase();
+    if (partnerHubHash && partnerHubZones[partnerHubHash]) {
+      setPartnerHubZone(partnerHubHash, false);
     }
-    window.addEventListener('resize', resizePartnerExpIframe);
+    document.querySelectorAll('[data-ph-scroll-zone]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var zone = link.getAttribute('data-ph-scroll-zone');
+        if (!zone || !partnerHubZones[zone]) return;
+        e.preventDefault();
+        setPartnerHubZone(zone, true);
+        partnerHubRoot.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  // Partner inquiry form → Google Sheet (Apps Script web app URL in partner-form-config.js)
+  var partnerForm = document.getElementById('partner-inquiry-form');
+  if (partnerForm) {
+    var partnerFormStatus = document.getElementById('partner-form-status');
+    var partnerFormSubmit = document.getElementById('partner-form-submit');
+    var partnerFormEndpoint = (
+      partnerForm.getAttribute('data-endpoint') ||
+      (window.LEVELUP_PARTNER_FORM && window.LEVELUP_PARTNER_FORM.endpoint) ||
+      ''
+    ).trim();
+
+    var setPartnerFormStatus = function (message, type) {
+      if (!partnerFormStatus) return;
+      partnerFormStatus.textContent = message;
+      partnerFormStatus.hidden = false;
+      partnerFormStatus.classList.remove('is-success', 'is-error');
+      if (type) partnerFormStatus.classList.add(type === 'success' ? 'is-success' : 'is-error');
+    };
+
+    partnerForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!partnerForm.checkValidity()) {
+        partnerForm.reportValidity();
+        return;
+      }
+      if (!partnerFormEndpoint) {
+        setPartnerFormStatus(
+          'Form is not connected to Google Sheets yet. Email clem@leveluplive.com or ask your site admin to add the Apps Script URL in content/data/partner-form-config.js.',
+          'error'
+        );
+        return;
+      }
+
+      var fd = new FormData(partnerForm);
+      var payload = {
+        name: fd.get('name'),
+        companyName: fd.get('companyName'),
+        phone: fd.get('phone'),
+        position: fd.get('position'),
+        companyAddress: fd.get('companyAddress'),
+        venueType: fd.get('venueType'),
+        foodBeverage: fd.get('foodBeverage'),
+        timeline: fd.get('timeline'),
+        budget: fd.get('budget'),
+        pageUrl: window.location.href
+      };
+
+      var partnerPayloadToParams = function (data) {
+        var params = new URLSearchParams();
+        Object.keys(data).forEach(function (key) {
+          var val = data[key];
+          if (val != null && val !== '') params.append(key, String(val));
+        });
+        return params;
+      };
+
+      var showPartnerFormSuccess = function () {
+        partnerForm.reset();
+        setPartnerFormStatus(
+          'Thank you — your inquiry was submitted. We will be in touch soon.',
+          'success'
+        );
+      };
+
+      var submitPartnerViaFetch = function () {
+        return fetch(partnerFormEndpoint, {
+          method: 'POST',
+          mode: 'cors',
+          redirect: 'follow',
+          body: partnerPayloadToParams(payload)
+        }).then(function (res) {
+          return res.text().then(function (text) {
+            var data = { ok: res.ok };
+            try {
+              data = JSON.parse(text);
+            } catch (parseErr) {}
+            if (!res.ok || data.ok === false) {
+              throw new Error(data.error || 'Submission failed');
+            }
+          });
+        });
+      };
+
+      var submitPartnerViaIframe = function () {
+        return new Promise(function (resolve) {
+          var iframeName = 'partner-form-iframe-' + Date.now();
+          var iframe = document.createElement('iframe');
+          iframe.name = iframeName;
+          iframe.setAttribute('aria-hidden', 'true');
+          iframe.style.cssText =
+            'position:absolute;width:0;height:0;border:0;opacity:0;pointer-events:none';
+          document.body.appendChild(iframe);
+
+          var hiddenForm = document.createElement('form');
+          hiddenForm.method = 'POST';
+          hiddenForm.action = partnerFormEndpoint;
+          hiddenForm.target = iframeName;
+          hiddenForm.style.display = 'none';
+          Object.keys(payload).forEach(function (key) {
+            var val = payload[key];
+            if (val == null || val === '') return;
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = String(val);
+            hiddenForm.appendChild(input);
+          });
+          document.body.appendChild(hiddenForm);
+          hiddenForm.submit();
+          window.setTimeout(function () {
+            hiddenForm.remove();
+            iframe.remove();
+            resolve();
+          }, 2000);
+        });
+      };
+
+      if (partnerFormSubmit) partnerFormSubmit.disabled = true;
+      setPartnerFormStatus('Sending…', 'success');
+
+      submitPartnerViaFetch()
+        .then(showPartnerFormSuccess)
+        .catch(function () {
+          return submitPartnerViaIframe().then(showPartnerFormSuccess);
+        })
+        .catch(function () {
+          setPartnerFormStatus(
+            'Something went wrong sending your form. Please try again or email clem@leveluplive.com.',
+            'error'
+          );
+        })
+        .finally(function () {
+          if (partnerFormSubmit) partnerFormSubmit.disabled = false;
+        });
+    });
   }
 
   // Optional: smooth scroll for anchor links (some browsers need this)
