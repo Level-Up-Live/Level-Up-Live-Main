@@ -40,4 +40,23 @@ This site can load the tournaments/events list from `content/data/events.json`.
    ```bash
    npm run sync:events
    ```
-5. Deploy as normal. The page `upcoming-tournaments.html` reads from `content/data/events.json`.
+5. Deploy as normal. The page `/upcoming-tournaments` reads from `content/data/events.json`.
+
+**Google Sheet (tournaments/events):**  
+https://docs.google.com/spreadsheets/d/17-WseYQsQlNPghWKPdyLc2Px3xED6qnxuPI1R4uMvHs/edit  
+Current synced tab in the repo is usually **`Sheet1`** (see `generated_at` / `tab` in `events.json`).
+
+### Automatic sync (GitHub Actions)
+
+Workflow `.github/workflows/sync-events.yml` runs every **2 hours** and can be triggered manually under **Actions → Sync tournaments from Google Sheet → Run workflow**.
+
+Add these **repository secrets** (Settings → Secrets and variables → Actions):
+
+| Secret | Value |
+|--------|--------|
+| `GOOGLE_SERVICE_ACCOUNT_EMAIL` | Service account email (see `.env.example`) |
+| `GOOGLE_PRIVATE_KEY` | Full private key, including `-----BEGIN...` / `-----END...` (paste with real newlines or `\n`) |
+| `GOOGLE_SHEET_ID` | `17-WseYQsQlNPghWKPdyLc2Px3xED6qnxuPI1R4uMvHs` |
+| `GOOGLE_SHEET_TAB` | Your tab name, e.g. `Sheet1` or `Events` |
+
+Share the spreadsheet with the service account email (Viewer is enough). After secrets are set, sheet edits show on the site within about **2 hours** (sync) plus **1–3 minutes** (Vercel deploy on push).

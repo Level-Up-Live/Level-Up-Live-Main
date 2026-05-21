@@ -608,36 +608,36 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 }
 
 /* Featured row: priority cards */
-.play-mega-grid .play-mega-card[href="locations.html"] {
+.play-mega-grid .play-mega-card[href="/locations"] {
   grid-column: 1 / span 4;
   grid-row: 1;
   aspect-ratio: 16 / 10;
 }
 
-.play-mega-grid .play-mega-card[href="upcoming-tournaments.html"] {
+.play-mega-grid .play-mega-card[href="/upcoming-tournaments"] {
   grid-column: 5 / span 4;
   grid-row: 1;
   aspect-ratio: 16 / 10;
 }
 
-.play-mega-grid .play-mega-card[href="plan-an-event.html"] {
+.play-mega-grid .play-mega-card[href="/plan-an-event"] {
   grid-column: 9 / span 4;
   grid-row: 1;
   aspect-ratio: 16 / 10;
 }
 
 /* Supporting row: balanced and centered */
-.play-mega-grid .play-mega-card[href="games.html"] {
+.play-mega-grid .play-mega-card[href="/games"] {
   grid-column: 2 / span 3;
   grid-row: 2;
 }
 
-.play-mega-grid .play-mega-card[href="how-it-works.html"] {
+.play-mega-grid .play-mega-card[href="/how-it-works"] {
   grid-column: 5 / span 3;
   grid-row: 2;
 }
 
-.play-mega-grid .play-mega-card[href="our-experiences.html"] {
+.play-mega-grid .play-mega-card[href="/our-experiences"] {
   grid-column: 8 / span 3;
   grid-row: 2;
 }
@@ -787,12 +787,12 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
   }
 
   .play-mega-card,
-  .play-mega-grid .play-mega-card[href="locations.html"],
-  .play-mega-grid .play-mega-card[href="upcoming-tournaments.html"],
-  .play-mega-grid .play-mega-card[href="plan-an-event.html"],
-  .play-mega-grid .play-mega-card[href="games.html"],
-  .play-mega-grid .play-mega-card[href="how-it-works.html"],
-  .play-mega-grid .play-mega-card[href="our-experiences.html"] {
+  .play-mega-grid .play-mega-card[href="/locations"],
+  .play-mega-grid .play-mega-card[href="/upcoming-tournaments"],
+  .play-mega-grid .play-mega-card[href="/plan-an-event"],
+  .play-mega-grid .play-mega-card[href="/games"],
+  .play-mega-grid .play-mega-card[href="/how-it-works"],
+  .play-mega-grid .play-mega-card[href="/our-experiences"] {
     grid-column: auto;
     grid-row: auto;
     aspect-ratio: 5 / 4;

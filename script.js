@@ -89,9 +89,9 @@
 
   // Location form: redirect to venue page
   var locationUrls = {
-    evike: 'location-evike.html',
-    'cube-vr': 'location-cube-vr.html',
-    'lake-erie-arms': 'location-lake-erie-arms.html'
+    evike: '/location-evike',
+    'cube-vr': '/location-cube-vr',
+    'lake-erie-arms': '/location-lake-erie-arms'
   };
 
   var locationForm = document.getElementById('location-form');
@@ -130,15 +130,15 @@
 
   if (playMenuGrids.length) {
     playMenuGrids.forEach(function (grid) {
-      var hasHowItWorks = grid.querySelector('a[href="how-it-works.html"]');
-      var hasOurExperiences = grid.querySelector('a[href="our-experiences.html"]');
+      var hasHowItWorks = grid.querySelector('a[href="/how-it-works"]');
+      var hasOurExperiences = grid.querySelector('a[href="/our-experiences"]');
 
       if (!hasHowItWorks) {
-        grid.appendChild(createPlayMegaCard('how-it-works.html', 'play-mega-thumb-howitworks', 'How It Works'));
+        grid.appendChild(createPlayMegaCard('/how-it-works', 'play-mega-thumb-howitworks', 'How It Works'));
       }
 
       if (!hasOurExperiences) {
-        grid.appendChild(createPlayMegaCard('our-experiences.html', 'play-mega-thumb-experiences', 'Our Experiences'));
+        grid.appendChild(createPlayMegaCard('/our-experiences', 'play-mega-thumb-experiences', 'Our Experiences'));
       }
     });
   }
@@ -147,17 +147,17 @@
   var aboutDropdowns = document.querySelectorAll('#about-menu, .nav-item-dropdown .nav-dropdown-links');
   if (aboutDropdowns.length) {
     aboutDropdowns.forEach(function (menu) {
-      var hasTestimonials = menu.querySelector('a[href="hear-from-our-customers.html"]');
+      var hasTestimonials = menu.querySelector('a[href="/hear-from-our-customers"]');
       if (!hasTestimonials) {
         var link = document.createElement('a');
-        link.href = 'hear-from-our-customers.html';
+        link.href = '/hear-from-our-customers';
         link.setAttribute('role', 'menuitem');
         link.textContent = 'Hear From Our Customers';
         menu.appendChild(link);
       }
-      if (!menu.querySelector('a[href="become-a-partner.html"]')) {
+      if (!menu.querySelector('a[href="/become-a-partner"]')) {
         var partnerLink = document.createElement('a');
-        partnerLink.href = 'become-a-partner.html';
+        partnerLink.href = '/become-a-partner';
         partnerLink.setAttribute('role', 'menuitem');
         partnerLink.textContent = 'Become a partner';
         menu.appendChild(partnerLink);
@@ -168,11 +168,11 @@
   var navMobileLists = document.querySelectorAll('.nav-mobile ul');
   if (navMobileLists.length) {
     navMobileLists.forEach(function (list) {
-      if (!list.querySelector('a[href="hear-from-our-customers.html"]')) {
-        var galleryLinkItem = list.querySelector('a[href="gallery.html"]');
+      if (!list.querySelector('a[href="/hear-from-our-customers"]')) {
+        var galleryLinkItem = list.querySelector('a[href="/gallery"]');
         var newItem = document.createElement('li');
         var newLink = document.createElement('a');
-        newLink.href = 'hear-from-our-customers.html';
+        newLink.href = '/hear-from-our-customers';
         newLink.textContent = 'Hear From Our Customers';
         newItem.appendChild(newLink);
         if (galleryLinkItem && galleryLinkItem.parentElement) {
@@ -181,12 +181,12 @@
           list.appendChild(newItem);
         }
       }
-      if (!list.querySelector('a[href="become-a-partner.html"]')) {
+      if (!list.querySelector('a[href="/become-a-partner"]')) {
         var partnerAnchor =
-          list.querySelector('a[href="hear-from-our-customers.html"]') || list.querySelector('a[href="gallery.html"]');
+          list.querySelector('a[href="/hear-from-our-customers"]') || list.querySelector('a[href="/gallery"]');
         var partnerLi = document.createElement('li');
         var partnerA = document.createElement('a');
-        partnerA.href = 'become-a-partner.html';
+        partnerA.href = '/become-a-partner';
         partnerA.textContent = 'Become a partner';
         partnerLi.appendChild(partnerA);
         if (partnerAnchor && partnerAnchor.parentElement) {
@@ -199,7 +199,7 @@
   }
 
   // Remove duplicate "How it works" text link in Play footer (card remains)
-  var playFooterHowItWorksLinks = document.querySelectorAll('.play-mega-footer a[href^="how-it-works.html"]');
+  var playFooterHowItWorksLinks = document.querySelectorAll('.play-mega-footer a[href^="/how-it-works"]');
   if (playFooterHowItWorksLinks.length) {
     playFooterHowItWorksLinks.forEach(function (link) {
       link.remove();
