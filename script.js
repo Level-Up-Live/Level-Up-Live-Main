@@ -824,70 +824,37 @@
         );
       };
 
-      var submitPartnerViaFetch = function () {
-        return fetch(partnerFormEndpoint, {
-          method: 'POST',
-          mode: 'cors',
-          redirect: 'follow',
-          body: partnerPayloadToParams(payload)
-        }).then(function (res) {
-          return res.text().then(function (text) {
-            var data = { ok: res.ok };
-            try {
-              data = JSON.parse(text);
-            } catch (parseErr) {}
-            if (!res.ok || data.ok === false) {
-              throw new Error(data.error || 'Submission failed');
-            }
-          });
-        });
-      };
-
-      var submitPartnerViaIframe = function () {
-        return new Promise(function (resolve) {
-          var iframeName = 'partner-form-iframe-' + Date.now();
-          var iframe = document.createElement('iframe');
-          iframe.name = iframeName;
-          iframe.setAttribute('aria-hidden', 'true');
-          iframe.style.cssText =
-            'position:absolute;width:0;height:0;border:0;opacity:0;pointer-events:none';
-          document.body.appendChild(iframe);
-
-          var hiddenForm = document.createElement('form');
-          hiddenForm.method = 'POST';
-          hiddenForm.action = partnerFormEndpoint;
-          hiddenForm.target = iframeName;
-          hiddenForm.style.display = 'none';
-          Object.keys(payload).forEach(function (key) {
-            var val = payload[key];
-            if (val == null || val === '') return;
-            var input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = key;
-            input.value = String(val);
-            hiddenForm.appendChild(input);
-          });
-          document.body.appendChild(hiddenForm);
-          hiddenForm.submit();
-          window.setTimeout(function () {
-            hiddenForm.remove();
-            iframe.remove();
-            resolve();
-          }, 2000);
-        });
+      var parsePartnerSubmitResponse = function (res, text) {
+        var trimmed = String(text || '').trim();
+        if (!trimmed || trimmed.charAt(0) !== '{') {
+          throw new Error(
+            'Google endpoint did not return JSON. In Apps Script use Deploy → Manage deployments → Who has access: Anyone, then create a new version.'
+          );
+        }
+        var data = JSON.parse(trimmed);
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || 'Submission failed');
+        }
       };
 
       if (partnerFormSubmit) partnerFormSubmit.disabled = true;
       setPartnerFormStatus('Sending…', 'success');
 
-      submitPartnerViaFetch()
+      fetch(partnerFormEndpoint, {
+        method: 'POST',
+        mode: 'cors',
+        redirect: 'follow',
+        body: partnerPayloadToParams(payload)
+      })
+        .then(function (res) {
+          return res.text().then(function (text) {
+            parsePartnerSubmitResponse(res, text);
+          });
+        })
         .then(showPartnerFormSuccess)
         .catch(function () {
-          return submitPartnerViaIframe().then(showPartnerFormSuccess);
-        })
-        .catch(function () {
           setPartnerFormStatus(
-            'Something went wrong sending your form. Please try again or email clem@leveluplive.com.',
+            'We could not confirm your submission in Google Sheets. Check that the web app is deployed for Anyone, then try again or email clem@leveluplive.com.',
             'error'
           );
         })
