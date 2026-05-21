@@ -277,7 +277,7 @@
           <p class="ph-section-lead">Tell us about your venue and we will follow up on program fit, footprint, and launch timing.</p>
           <p class="ph-form-note"><span class="ph-form-required" aria-hidden="true">*</span> Required fields</p>
 
-          <form id="partner-inquiry-form" class="ph-inquiry-form" action="#" method="post" novalidate data-endpoint="https://script.google.com/macros/s/AKfycbx4LXmy2dsL-h_48dBwug9tYTlVzHImhTZ4QYOESEVzLbd9mpjggwewWEo5YhmxaO9r/exec">
+          <form id="partner-inquiry-form" class="ph-inquiry-form" action="#" method="post" novalidate data-endpoint="https://script.google.com/macros/s/AKfycbw9YPlQyS9DCbQQ6DMq4U0un4qolGwOYXKcyvExzt961Ch0rOLxYnYhFSY7pd-l68SR/exec">
             <fieldset class="ph-form-fieldset">
               <legend class="ph-form-legend">Contact</legend>
               <div class="ph-form-row ph-form-row--2">
@@ -286,14 +286,14 @@
                   <input class="ph-form-input" type="text" id="partner-name" name="name" autocomplete="name" required />
                 </div>
                 <div class="ph-form-field">
-                  <label class="ph-form-label" for="partner-phone">Phone number <span class="ph-form-required" aria-hidden="true">*</span></label>
-                  <input class="ph-form-input" type="tel" id="partner-phone" name="phone" autocomplete="tel" required />
+                  <label class="ph-form-label" for="partner-email">Email address <span class="ph-form-required" aria-hidden="true">*</span></label>
+                  <input class="ph-form-input" type="email" id="partner-email" name="email" autocomplete="email" required />
                 </div>
               </div>
               <div class="ph-form-row ph-form-row--2">
                 <div class="ph-form-field">
-                  <label class="ph-form-label" for="partner-company">Company name <span class="ph-form-required" aria-hidden="true">*</span></label>
-                  <input class="ph-form-input" type="text" id="partner-company" name="companyName" autocomplete="organization" required />
+                  <label class="ph-form-label" for="partner-phone">Phone number <span class="ph-form-required" aria-hidden="true">*</span></label>
+                  <input class="ph-form-input" type="tel" id="partner-phone" name="phone" autocomplete="tel" required />
                 </div>
                 <div class="ph-form-field">
                   <label class="ph-form-label" for="partner-position">Position with company <span class="ph-form-required" aria-hidden="true">*</span></label>
@@ -303,13 +303,41 @@
             </fieldset>
 
             <fieldset class="ph-form-fieldset">
-              <legend class="ph-form-legend">Venue</legend>
+              <legend class="ph-form-legend">Company</legend>
               <div class="ph-form-row">
                 <div class="ph-form-field">
-                  <label class="ph-form-label" for="partner-address">Company / venue address <span class="ph-form-required" aria-hidden="true">*</span></label>
-                  <input class="ph-form-input" type="text" id="partner-address" name="companyAddress" autocomplete="street-address" required />
+                  <label class="ph-form-label" for="partner-company">Company name <span class="ph-form-required" aria-hidden="true">*</span></label>
+                  <input class="ph-form-input" type="text" id="partner-company" name="companyName" autocomplete="organization" required />
                 </div>
               </div>
+            </fieldset>
+
+            <fieldset class="ph-form-fieldset">
+              <legend class="ph-form-legend">Venue address</legend>
+              <div class="ph-form-row">
+                <div class="ph-form-field">
+                  <label class="ph-form-label" for="partner-street">Street address <span class="ph-form-required" aria-hidden="true">*</span></label>
+                  <input class="ph-form-input" type="text" id="partner-street" name="streetAddress" autocomplete="street-address" required />
+                </div>
+              </div>
+              <div class="ph-form-row ph-form-row--3">
+                <div class="ph-form-field">
+                  <label class="ph-form-label" for="partner-city">City <span class="ph-form-required" aria-hidden="true">*</span></label>
+                  <input class="ph-form-input" type="text" id="partner-city" name="city" autocomplete="address-level2" required />
+                </div>
+                <div class="ph-form-field">
+                  <label class="ph-form-label" for="partner-state">State / province <span class="ph-form-required" aria-hidden="true">*</span></label>
+                  <input class="ph-form-input" type="text" id="partner-state" name="state" autocomplete="address-level1" required />
+                </div>
+                <div class="ph-form-field">
+                  <label class="ph-form-label" for="partner-zip">ZIP / postal code <span class="ph-form-required" aria-hidden="true">*</span></label>
+                  <input class="ph-form-input" type="text" id="partner-zip" name="zipCode" autocomplete="postal-code" required />
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="ph-form-fieldset">
+              <legend class="ph-form-legend">Venue</legend>
               <div class="ph-form-row ph-form-row--2">
                 <div class="ph-form-field">
                   <label class="ph-form-label" for="partner-venue-type">Venue type <span class="ph-form-required" aria-hidden="true">*</span></label>
@@ -416,7 +444,7 @@
     </div>
   </footer>
 
-  <script src="content/data/partner-form-config.js?v=2"></script>
-  <script src="script.js?v=4"></script>
+  <script src="content/data/partner-form-config.js?v=3"></script>
+  <script src="script.js?v=6"></script>
 </body>
 </html>

@@ -18,10 +18,14 @@ var SPREADSHEET_ID = '';
 var HEADERS = [
   'Timestamp',
   'Name',
-  'Company Name',
+  'Email',
   'Phone',
+  'Company Name',
   'Position',
-  'Company Address',
+  'Street Address',
+  'City',
+  'State',
+  'ZIP',
   'Venue Type',
   'Food & Beverage',
   'Timeline',
@@ -47,14 +51,13 @@ function getSubmissionSheet_() {
 
 function setupSheet() {
   var sheet = getSubmissionSheet_();
-  var needsHeaders =
-    sheet.getLastRow() < 1 || String(sheet.getRange(1, 1).getValue()) !== 'Timestamp';
-  if (needsHeaders) {
-    sheet.clear();
+  if (sheet.getLastRow() < 1) {
     sheet.appendRow(HEADERS);
-    sheet.setFrozenRows(1);
-    sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
+  } else {
+    sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
   }
+  sheet.setFrozenRows(1);
+  sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
 }
 
 function parsePostBody_(e) {
@@ -110,14 +113,21 @@ function doPost(e) {
     if (!String(body.name || '').trim()) {
       throw new Error('Missing name');
     }
+    if (!String(body.email || '').trim()) {
+      throw new Error('Missing email');
+    }
 
     sheet.appendRow([
       new Date(),
       String(body.name || '').trim(),
-      String(body.companyName || '').trim(),
+      String(body.email || '').trim(),
       String(body.phone || '').trim(),
+      String(body.companyName || '').trim(),
       String(body.position || '').trim(),
-      String(body.companyAddress || '').trim(),
+      String(body.streetAddress || '').trim(),
+      String(body.city || '').trim(),
+      String(body.state || '').trim(),
+      String(body.zipCode || '').trim(),
       String(body.venueType || '').trim(),
       String(body.foodBeverage || '').trim(),
       String(body.timeline || '').trim(),
@@ -147,10 +157,14 @@ function testWriteRow() {
   doPost({
     parameter: {
       name: 'Test User',
-      companyName: 'Test Co',
+      email: 'test@example.com',
       phone: '555-0100',
+      companyName: 'Test Co',
       position: 'Owner',
-      companyAddress: '123 Test St',
+      streetAddress: '123 Main St',
+      city: 'Cleveland',
+      state: 'OH',
+      zipCode: '44101',
       venueType: 'Entertainment center / FEC',
       foodBeverage: 'Yes',
       timeline: 'Exploring options',

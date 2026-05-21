@@ -7,5 +7,5 @@
  * 4. Copy the /exec URL and paste it below (ends with .../exec, not .../dev).
  */
 window.LEVELUP_PARTNER_FORM = {
-  endpoint: 'https://script.google.com/macros/s/AKfycbx4LXmy2dsL-h_48dBwug9tYTlVzHImhTZ4QYOESEVzLbd9mpjggwewWEo5YhmxaO9r/exec'
+  endpoint: 'https://script.google.com/macros/s/AKfycbw9YPlQyS9DCbQQ6DMq4U0un4qolGwOYXKcyvExzt961Ch0rOLxYnYhFSY7pd-l68SR/exec'
 };
