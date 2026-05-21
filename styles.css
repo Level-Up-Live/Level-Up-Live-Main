@@ -1779,7 +1779,7 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 .ph-intro-title {
   margin: 0 0 var(--space-sm);
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -1788,9 +1788,10 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 
 .ph-intro-lead {
   margin: 0 0 var(--space-xl);
-  max-width: 40rem;
+  max-width: 44rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  font-size: 1.15rem;
+  line-height: 1.65;
 }
 
 .ph-intro-lead a {
@@ -1817,8 +1818,8 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 .ph-intro-program-link {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  padding: var(--space-lg);
+  gap: 0.4rem;
+  padding: var(--space-xl);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: var(--bg-card);
@@ -1833,7 +1834,7 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 
 .ph-intro-program-name {
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1841,8 +1842,8 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 }
 
 .ph-intro-program-desc {
-  font-size: 0.88rem;
-  line-height: 1.45;
+  font-size: 1.02rem;
+  line-height: 1.5;
   color: var(--text-muted);
 }
 
@@ -1865,8 +1866,18 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
   }
 }
 
+.ph-why .ph-section-title--center {
+  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+}
+
+.ph-why .ph-section-lead--center {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  max-width: 46rem;
+}
+
 .ph-why-card {
-  padding: var(--space-lg);
+  padding: var(--space-xl);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: var(--bg-dark);
@@ -1876,7 +1887,7 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
   display: block;
   margin-bottom: var(--space-sm);
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 800;
   line-height: 1;
   color: rgba(0, 229, 199, 0.35);
@@ -1885,7 +1896,7 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 .ph-why-card-title {
   margin: 0 0 var(--space-sm);
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1894,14 +1905,18 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 
 .ph-why-card p {
   margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.55;
+  font-size: 1.05rem;
+  line-height: 1.6;
   color: var(--text-muted);
 }
 
 .ph-outcomes {
   padding: var(--space-3xl) 0;
   background: var(--bg-dark);
+}
+
+.ph-outcomes .ph-section-title {
+  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
 }
 
 .ph-outcomes-grid {
@@ -1918,7 +1933,7 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 }
 
 .ph-outcome-card {
-  padding: var(--space-lg);
+  padding: var(--space-xl);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: var(--bg-card);
@@ -1927,7 +1942,7 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 .ph-outcome-card h3 {
   margin: 0 0 var(--space-sm);
   font-family: var(--font-display);
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1936,8 +1951,8 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 
 .ph-outcome-card p {
   margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.55;
+  font-size: 1.05rem;
+  line-height: 1.6;
   color: var(--text-muted);
 }
 
@@ -1953,6 +1968,13 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 
 .ph-programs-lead {
   max-width: 40rem;
+  font-size: 1.12rem;
+  line-height: 1.65;
+}
+
+.ph-programs .experience-tab {
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
 }
 
 .ph-programs .experience-selector {
@@ -2006,11 +2028,19 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 
 .ph-program-stage-body {
   padding: var(--space-xl);
+  font-size: 1.05rem;
+}
+
+@media (min-width: 900px) {
+  .ph-program-stage-body {
+    padding: var(--space-2xl);
+    font-size: 1.08rem;
+  }
 }
 
 .ph-program-eyebrow {
   margin: 0 0 var(--space-xs);
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -2020,7 +2050,7 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 .ph-program-name {
   margin: 0 0 var(--space-xs);
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -2030,7 +2060,7 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 
 .ph-program-tagline {
   margin: 0 0 var(--space-sm);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -2039,8 +2069,8 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 
 .ph-program-desc {
   margin: 0 0 var(--space-md);
-  font-size: 1rem;
-  line-height: 1.55;
+  font-size: 1.12rem;
+  line-height: 1.6;
   color: var(--text);
   font-weight: 500;
 }
@@ -2075,7 +2105,7 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 .ph-program-detail h4 {
   margin: 0 0 var(--space-xs);
   font-family: var(--font-display);
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -2084,8 +2114,8 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 
 .ph-program-detail p {
   margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.55;
+  font-size: 1.02rem;
+  line-height: 1.6;
   color: var(--text-muted);
 }
 
@@ -2093,12 +2123,47 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
   margin: 0 0 var(--space-md);
   padding-left: 1.15rem;
   color: var(--text-muted);
-  font-size: 0.9rem;
-  line-height: 1.55;
+  font-size: 1.02rem;
+  line-height: 1.6;
 }
 
 .ph-program-list li {
   margin-bottom: 0.35rem;
+}
+
+.ph-program-buildout {
+  margin: var(--space-md) 0;
+  padding: var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.ph-program-buildout h4 {
+  margin: 0 0 var(--space-sm);
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.ph-program-buildout-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.ph-program-buildout-list li {
+  margin-bottom: 0.3rem;
+}
+
+.ph-program-buildout-list strong {
+  color: var(--text);
+  font-weight: 600;
 }
 
 .ph-program-link {
@@ -2109,6 +2174,7 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
   padding: clamp(3.5rem, 7vw, 5rem) 0 clamp(4.5rem, 9vw, 6rem);
   background: var(--bg-card);
   border-top: 1px solid var(--border);
+  scroll-margin-top: calc(var(--header-h, 72px) + var(--space-md));
 }
 
 .ph-contact-inner {
@@ -3505,6 +3571,24 @@ html[data-theme="light"] .ph-form-select {
   transform: scale(1.03);
 }
 
+.location-hero-photo-wrap {
+  margin: 0 0 var(--space-lg);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  text-align: center;
+}
+
+.location-hero-photo {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
 .location-hero-video-embed {
   position: relative;
   width: 100%;
@@ -3729,6 +3813,18 @@ html[data-theme="light"] .ph-form-select {
 
 .location-amenity-img-100yard {
   background-image: url("content/images/locations/lake-erie-arms/range-100-yard.webp");
+}
+
+.location-amenity-img-cube-fullbody {
+  background-image: url("content/images/locations/cube-vr/4418833_lg.jpg");
+}
+
+.location-amenity-img-cube-pixel {
+  background-image: url("content/images/locations/cube-vr/download.jfif");
+}
+
+.location-amenity-img-cube-more {
+  background-image: url("content/images/locations/cube-vr/adwk1cbdvzsw-640w.webp");
 }
 
 .location-amenity-body {
@@ -4795,11 +4891,74 @@ html[data-theme="light"] .ph-form-select {
 }
 
 .immersion-intro,
+.immersion-buildout,
 .immersion-features,
 .immersion-steps,
 .immersion-audience,
 .immersion-final-cta {
   padding: var(--space-3xl) 0;
+}
+
+.zone-buildout-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.zone-buildout-card .section-title {
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.zone-buildout-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 640px) {
+  .zone-buildout-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .zone-buildout-list--compact {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+}
+
+.zone-buildout-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: var(--space-lg);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.zone-buildout-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.1;
+}
+
+.zone-buildout-label {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.5;
 }
 
 .immersion-intro-card {
@@ -4819,7 +4978,7 @@ html[data-theme="light"] .ph-form-select {
   margin: 0;
   color: var(--text-muted);
   text-align: center;
-  font-size: 1.05rem;
+  font-size: 1.12rem;
   line-height: 1.65;
 }
 
@@ -5293,6 +5452,7 @@ html[data-theme="light"] .ph-form-select {
 }
 
 .action-intro,
+.action-buildout,
 .action-features,
 .action-steps,
 .action-audience,
@@ -5317,7 +5477,7 @@ html[data-theme="light"] .ph-form-select {
   margin: 0;
   color: var(--text-muted);
   text-align: center;
-  font-size: 1.05rem;
+  font-size: 1.12rem;
   line-height: 1.65;
 }
 
