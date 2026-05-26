@@ -178,6 +178,11 @@ html[data-theme="light"] .theme-toggle-moon {
 /* Fixed dark overlays + media: keep light ink (overrides global light-theme text) */
 .hero .hero-title-line:not(.accent) {
   color: #f4f7fb;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+.hero .hero-title-line.accent {
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
 .hero .hero-tagline {
@@ -953,7 +958,7 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
   min-height: 100vh;
   padding: calc(var(--header-h) + var(--space-2xl)) var(--space-lg) var(--space-xl);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   overflow: hidden;
 }
@@ -982,6 +987,18 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
   transform: translateX(-50%);
   border: 0;
   pointer-events: none;
+  z-index: 0;
+}
+
+.hero-video-fallback {
+  z-index: 1;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
 }
 
 .hero-overlay {
@@ -1001,10 +1018,11 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   width: 100%;
-  max-width: 700px;
+  max-width: 900px;
   text-align: center;
+  padding-bottom: var(--space-2xl);
 }
 
 .hero-title {
@@ -1017,7 +1035,7 @@ html[data-theme="light"] .logo-wordmark-wrap .logo-img {
 }
 
 .hero-title-line {
-  display: block;
+  display: inline;
 }
 
 .hero-title-line.accent {
