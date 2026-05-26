@@ -1,9 +1,8 @@
 name: Sync tournaments from Google Sheet
 
 on:
-  schedule:
-    # Every 2 hours (UTC). Vercel redeploys after push if Git integration is on.
-    - cron: '0 */2 * * *'
+  # schedule:
+  #   - cron: '0 */2 * * *'
   workflow_dispatch:
 
 permissions:
