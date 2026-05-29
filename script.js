@@ -7,10 +7,11 @@
   }
 
   function initHeroBackgroundVideo() {
-    var frame = document.querySelector('.hero-video-frame');
-    if (!frame) return;
+    var mount = document.getElementById('hero-youtube-player');
+    var hero = document.getElementById('hero');
+    if (!mount || !hero) return;
 
-    var videoId = frame.getAttribute('data-youtube-id');
+    var videoId = mount.getAttribute('data-youtube-id');
     if (!videoId) return;
 
     var origin = window.location.origin;
@@ -18,26 +19,66 @@
       origin = 'https://www.leveluplive.com';
     }
 
-    var params = new URLSearchParams({
-      autoplay: '1',
-      mute: '1',
-      controls: '0',
-      loop: '1',
-      playlist: videoId,
-      playsinline: '1',
-      rel: '0',
-      modestbranding: '1',
-      iv_load_policy: '3',
-      disablekb: '1',
-      fs: '0',
-      origin: origin
-    });
+    function onPlayerStateChange(event) {
+      if (event.data === window.YT.PlayerState.PLAYING) {
+        hero.classList.add('is-video-playing');
+      }
+      if (event.data === window.YT.PlayerState.ENDED) {
+        event.target.seekTo(0);
+        event.target.playVideo();
+      }
+    }
 
-    frame.src =
-      'https://www.youtube.com/embed/' +
-      encodeURIComponent(videoId) +
-      '?' +
-      params.toString();
+    function createPlayer() {
+      if (mount.getAttribute('data-yt-ready') === '1') return;
+      mount.setAttribute('data-yt-ready', '1');
+
+      new window.YT.Player(mount, {
+        videoId: videoId,
+        width: '100%',
+        height: '100%',
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          playsinline: 1,
+          rel: 0,
+          modestbranding: 1,
+          iv_load_policy: 3,
+          disablekb: 1,
+          fs: 0,
+          cc_load_policy: 0,
+          autohide: 1,
+          enablejsapi: 1,
+          origin: origin
+        },
+        events: {
+          onReady: function (event) {
+            event.target.mute();
+            event.target.playVideo();
+          },
+          onStateChange: onPlayerStateChange
+        }
+      });
+    }
+
+    if (window.YT && window.YT.Player) {
+      createPlayer();
+      return;
+    }
+
+    var previousReady = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () {
+      if (typeof previousReady === 'function') previousReady();
+      createPlayer();
+    };
+
+    if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+      var tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      tag.async = true;
+      document.head.appendChild(tag);
+    }
   }
 
   initHeroBackgroundVideo();
