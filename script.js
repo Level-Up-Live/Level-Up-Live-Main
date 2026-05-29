@@ -6,6 +6,42 @@
     document.body.classList.add('is-embed');
   }
 
+  function initHeroBackgroundVideo() {
+    var frame = document.querySelector('.hero-video-frame');
+    if (!frame) return;
+
+    var videoId = frame.getAttribute('data-youtube-id');
+    if (!videoId) return;
+
+    var origin = window.location.origin;
+    if (!origin || origin === 'null' || origin.indexOf('file:') === 0) {
+      origin = 'https://www.leveluplive.com';
+    }
+
+    var params = new URLSearchParams({
+      autoplay: '1',
+      mute: '1',
+      controls: '0',
+      loop: '1',
+      playlist: videoId,
+      playsinline: '1',
+      rel: '0',
+      modestbranding: '1',
+      iv_load_policy: '3',
+      disablekb: '1',
+      fs: '0',
+      origin: origin
+    });
+
+    frame.src =
+      'https://www.youtube.com/embed/' +
+      encodeURIComponent(videoId) +
+      '?' +
+      params.toString();
+  }
+
+  initHeroBackgroundVideo();
+
   var THEME_STORAGE_KEY = 'lul-theme';
 
   function themeFromMedia() {
