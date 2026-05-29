@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /partner-resources
+
+Sitemap: https://leveluplive.com/sitemap.xml
