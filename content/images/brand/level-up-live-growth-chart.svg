@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="chartTitle chartDesc">
+  <title id="chartTitle">Level Up Live  Player Sessions Growth</title>
+  <desc id="chartDesc">Illustrative line chart showing monthly player sessions trending upward from January through June.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0c0f"/>
+      <stop offset="100%" stop-color="#121820"/>
+    </linearGradient>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00e5c7" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#00e5c7" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00e5c7"/>
+      <stop offset="100%" stop-color="#2dd4bf"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect x="48" y="48" width="1104" height="579" rx="16" fill="#0f1318" stroke="#1f2833"/>
+
+  <!-- grid -->
+  <g stroke="#1f2833" stroke-width="1">
+    <line x1="120" y1="140" x2="1120" y2="140"/>
+    <line x1="120" y1="240" x2="1120" y2="240"/>
+    <line x1="120" y1="340" x2="1120" y2="340"/>
+    <line x1="120" y1="440" x2="1120" y2="440"/>
+    <line x1="120" y1="540" x2="1120" y2="540"/>
+    <line x1="280" y1="120" x2="280" y2="560"/>
+    <line x1="480" y1="120" x2="480" y2="560"/>
+    <line x1="680" y1="120" x2="680" y2="560"/>
+    <line x1="880" y1="120" x2="880" y2="560"/>
+    <line x1="1080" y1="120" x2="1080" y2="560"/>
+  </g>
+
+  <!-- area + line (sample data) -->
+  <path fill="url(#area)" d="M120,520 L280,470 L480,430 L680,360 L880,300 L1080,220 L1080,560 L120,560 Z"/>
+  <polyline fill="none" stroke="url(#line)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"
+    points="120,520 280,470 480,430 680,360 880,300 1080,220"/>
+  <g fill="#00e5c7" stroke="#0a0c0f" stroke-width="3">
+    <circle cx="120" cy="520" r="8"/>
+    <circle cx="280" cy="470" r="8"/>
+    <circle cx="480" cy="430" r="8"/>
+    <circle cx="680" cy="360" r="8"/>
+    <circle cx="880" cy="300" r="8"/>
+    <circle cx="1080" cy="220" r="10"/>
+  </g>
+
+  <!-- labels -->
+  <text x="80" y="96" fill="#f4f7fb" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="700">Level Up Live</text>
+  <text x="80" y="128" fill="#aab2bd" font-family="Segoe UI, Arial, sans-serif" font-size="18">Player sessions by month (illustrative)</text>
+
+  <g fill="#aab2bd" font-family="Segoe UI, Arial, sans-serif" font-size="15" text-anchor="middle">
+    <text x="120" y="590">Jan</text>
+    <text x="280" y="590">Feb</text>
+    <text x="480" y="590">Mar</text>
+    <text x="680" y="590">Apr</text>
+    <text x="880" y="590">May</text>
+    <text x="1080" y="590">Jun</text>
+  </g>
+
+  <g fill="#7d8794" font-family="Segoe UI, Arial, sans-serif" font-size="14" text-anchor="end">
+    <text x="105" y="145">2.4k</text>
+    <text x="105" y="245">2.0k</text>
+    <text x="105" y="345">1.6k</text>
+    <text x="105" y="445">1.2k</text>
+    <text x="105" y="545">0.8k</text>
+  </g>
+
+  <text x="1080" y="200" fill="#00e5c7" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" text-anchor="end">+38%</text>
+  <text x="1080" y="226" fill="#aab2bd" font-family="Segoe UI, Arial, sans-serif" font-size="14" text-anchor="end">vs. prior period</text>
+</svg>
